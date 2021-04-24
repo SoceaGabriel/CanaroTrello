@@ -1,0 +1,57 @@
+﻿@model Canaro_Trello.Models.ProjectDTO
+
+@{
+    ViewBag.Title = "Add Project";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+@section PageTitle{
+    <div class="w3-padding-16 w3-center">
+        <h1 class="w3-serif">Add a new project</h1>
+    </div>
+}
+
+@using (Html.BeginForm("AddProject", "Projects"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="w3-container">
+        <h4>Complete the fields required to add a new project </h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <p>
+            @Html.LabelFor(model => model.ProjectTitle, htmlAttributes: new { @class = "w3-text-teal w3-indent" })
+            @Html.EditorFor(model => model.ProjectTitle, new { htmlAttributes = new { @class = "w3-input w3-border w3-border-teal w3-round-large" } })
+            @Html.ValidationMessageFor(model => model.ProjectTitle, "", new { @class = "text-danger" })
+        </p>
+        <p>
+            @Html.LabelFor(model => model.ProjectDescription, htmlAttributes: new { @class = "w3-text-teal w3-indent" })
+            @Html.EditorFor(model => model.ProjectDescription, new { htmlAttributes = new { @class = "w3-input w3-border w3-border-teal w3-round-large" } })
+            @Html.ValidationMessageFor(model => model.ProjectDescription, "", new { @class = "text-danger" })
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.Version, htmlAttributes: new { @class = "w3-text-teal w3-indent" })
+            @Html.EditorFor(model => model.Version, new { htmlAttributes = new { @class = "w3-input w3-border w3-border-teal w3-round-large" } })
+            @Html.ValidationMessageFor(model => model.Version, "", new { @class = "text-danger" })
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.ProjectStartDate, htmlAttributes: new { @class = "w3-text-teal w3-indent" })
+            @Html.EditorFor(model => model.ProjectStartDate, new { htmlAttributes = new { @class = "w3-input w3-border w3-border-teal w3-round-large" } })
+            @Html.ValidationMessageFor(model => model.ProjectStartDate, "", new { @class = "text-danger" })
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.Complexity, htmlAttributes: new { @class = "w3-text-teal w3-indent" })
+            @Html.EnumDropDownListFor(model => model.Complexity, htmlAttributes: new { @class = "w3-input w3-border w3-border-teal w3-round-large" })
+            @Html.ValidationMessageFor(model => model.Complexity, "", new { @class = "text-danger" })
+        </p>
+
+        <div class="w3-center">
+            <input type="submit" value="Add project" class="w3-btn w3-teal" />
+            <div class="w3-btn w3-tarhon"><a href="/Projects/GetAllProjects">Back to projects list</a></div>
+        </div>
+    </div>
+}
+

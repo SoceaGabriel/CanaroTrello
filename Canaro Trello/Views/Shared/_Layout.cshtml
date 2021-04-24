@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/utils")
+</head>
+<body>
+    <nav class="w3-bar w3-teal">
+        <span class="w3-bar-item  w3-mobile menu-item w3-serif"><img src="../Images/logo.svg" alt="Logo Canaro Trello" width="35" /> &nbsp; @Html.ActionLink("Canaro Trello", "Index", "Home")</span>
+        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Home", "Index", "Home")</span>
+        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Activity ", "About", "Home")</span>
+        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Tickets", "Contact", "Home")</span>
+        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Projects", "GetAllProjects", "Projects")</span>
+        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("My Profile", "Contact", "Home")</span>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,60 @@
+﻿@model Canaro_Trello.Models.ProjectDTO
+
+@{
+    ViewBag.Title = "GetProject";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+@section PageTitle{
+    <div class="w3-padding-16 w3-center">
+        <h1 class="w3-serif">Project details</h1>
+    </div>
+}
+
+    <div class="w3-container">
+        <div class="w3-container">
+            <div class="w3-left"><h4 class="w3-serif">@Html.DisplayFor(model => model.ProjectTitle)</h4></div>
+            <div class="w3-right">
+                <a href="/Projects/EditProject?index=@Html.DisplayFor(model => model.ProjectId)" title="Edit"><i class="material-icons" style="font-size:30px;color:black; padding-top: 10px">create</i></a>
+                <a href="/Projects/DeleteProject?index=@Html.DisplayFor(model => model.ProjectId)"><i class="material-icons" style="font-size:30px;color:black; padding-right: 10px" title="Delete">delete</i></a>
+            </div>
+        </div>
+        <hr />
+
+        <div>
+            <h5 class="w3-indent">
+                <b class="w3-text-teal">@Html.DisplayNameFor(model => model.Version):</b>
+                @Html.DisplayFor(model => model.Version)
+            </h5>
+        </div>
+
+        <div>
+            <h5 class="w3-indent">
+                <b class="w3-text-teal">@Html.DisplayNameFor(model => model.ProjectStartDate):</b>
+                @Html.DisplayFor(model => model.ProjectStartDate)
+            </h5>
+        </div>
+
+        <div>
+            <h5 class="w3-indent">
+                <b class="w3-text-teal">@Html.DisplayNameFor(model => model.Complexity):</b>
+                @Html.DisplayFor(model => model.Complexity)
+            </h5>
+        </div>
+
+        <div>
+            <h5 class="w3-indent"><b class="w3-text-teal">@Html.DisplayNameFor(model => model.ProjectDescription):</b></h5>
+            <div class="w3-panel w3-padding-32 w3-indent w3-round-large" style="background-color: #f1f1f1;">
+                @Html.DisplayFor(model => model.ProjectDescription)
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="w3-center">
+            <div class="w3-btn w3-tarhon"><a href="/Projects/GetAllProjects">Back to projects list</a></div>
+        </div>
+    </div>

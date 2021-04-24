@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/utils")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+</head>
+<body>
+    <nav class="w3-bar w3-teal">
+        <span class="w3-bar-item  w3-mobile menu-item w3-serif"><img src="../Images/logo.svg" alt="Logo Canaro Trello" width="35" /> &nbsp; @Html.ActionLink("Canaro Trello", "Index", "Home")</span>
+        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Home", "Index", "Home")</span>
+        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Activity ", "About", "Home")</span>
+        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Tickets", "Contact", "Home")</span>
+        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Projects", "GetAllProjects", "Projects")</span>
+        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("My Profile", "Contact", "Home")</span>
+    </nav>
+        @RenderSection("PageTitle", true)
+    <div class="w3-row">
+        <div class="w3-threequarter">
+        
+            <div class="main-content w3-card custom-body">
+                @RenderBody()
+            </div>
+        </div>
+
+        <div class="w3-quarter custom-div">
+            <!--Vremea-->
+            <div class="w3-card-4 aside-card">
+                <header class="w3-container w3-teal">
+                    <h3 class="w3-serif">Weather in Iasi </h3>
+                </header>
+                <div class="w3-container w3-padding-16">
+                    <div id="wwo-weather-widget-1"></div>
+                    <script type='text/javascript' src='https://www.worldweatheronline.com/widget/v5/weather-widget.ashx?loc=2028326&wid=1&tu=1&div=wwo-weather-widget-1' async></script><noscript>This is a weather widget sript!</noscript>
+                </div>
+            </div>
+
+            <!--Curs valutar-->
+            <div class="w3-card-4 aside-card">
+                <header class="w3-container w3-teal">
+                    <h3 class="w3-serif">Exchange</h3>
+                </header>
+                <div class="w3-container w3-padding-16">
+                    <!--Currency Converter widget by FreeCurrencyRates.com -->
+
+                    <div id='gcw_mainFwI8qMpdR' class='gcw_mainFwI8qMpdR'></div>
+
+                    <script>function reloadFwI8qMpdR() { var sc = document.getElementById('scFwI8qMpdR'); if (sc) sc.parentNode.removeChild(sc); sc = document.createElement('script'); sc.type = 'text/javascript'; sc.charset = 'UTF-8'; sc.async = true; sc.id = 'scFwI8qMpdR'; sc.src = 'https://freecurrencyrates.com/en/widget-vertical-editable?iso=USD-EUR-GBP-RON&df=1&p=FwI8qMpdR&v=fits&source=fcr&width=245&width_title=0&firstrowvalue=1&thm=dddddd,eeeeee,E78F08,F6A828,FFFFFF,cccccc,ffffff,1C94C4,000000&title=Currency%20Converter&tzo=-180'; var div = document.getElementById('gcw_mainFwI8qMpdR'); div.parentNode.insertBefore(sc, div); } reloadFwI8qMpdR();</script>
+                    <!-- put custom styles here: .gcw_mainFwI8qMpdR{}, .gcw_headerFwI8qMpdR{}, .gcw_ratesFwI8qMpdR{}, .gcw_sourceFwI8qMpdR{} -->
+                    <!--End of Currency Converter widget by FreeCurrencyRates.com -->
+                </div>
+            </div>
+
+            <!--Calendar-->
+            <div class="w3-card-4 aside-card">
+                <header class="w3-container w3-teal">
+                    <h3 class="w3-serif">Calendar</h3>
+                </header>
+                <div class="w3-container w3-padding-16">
+                    <div id="my-calendar"></div>
+                    <script>
+                        const myCalendar = new TavoCalendar('#my-calendar', {
+                            date: "2021-03-15",
+                            format: "DD-MM-YYYY",
+                            locale: "ro",
+                            selected: new Date(),
+                            multi_select: false,
+                            future_select: true,
+                            past_select: false,
+                            frozen: false,
+                            highlight: [/*2012-12-23*/],
+                            blacklist: [/*2012-12-24*/],
+                            highligh_sunday: true,
+                            highlight_saturday: true
+                        })
+                    </script>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer class="w3-container w3-teal w3-center">
+        <p>&copy; @DateTime.Now.Year - Canaro Trello - Aplicatie pentru management task-uri. &copy; Socea Gabriel</p>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
