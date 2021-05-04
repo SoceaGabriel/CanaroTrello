@@ -32,19 +32,85 @@ namespace Canaro_Trello.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAllProjects(int? page)
+        public ActionResult GetAllProjects(int? page, int sort = 1)
         {
+            if(Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index","Login");
+            }
+
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            var projects = DBCotext.Projects.Select(c => new ProjectDTO{
-                ProjectId = c.ProjectId,
-                ProjectDescription = c.ProjectDescription,
-                Complexity = c.Complexity,
-                ProjectStartDate = c.ProjectStartDate,
-                ProjectTitle = c.ProjectTitle,
-                Version = c.Version
-            }).OrderBy(c => c.ProjectTitle).ToList();
-
+            IEnumerable<ProjectDTO> projects = null;
+            switch(sort)
+            {
+                case 1:
+                    projects = DBCotext.Projects.Select(c => new ProjectDTO
+                    {
+                        ProjectId = c.ProjectId,
+                        ProjectDescription = c.ProjectDescription,
+                        Complexity = c.Complexity,
+                        ProjectStartDate = c.ProjectStartDate,
+                        ProjectTitle = c.ProjectTitle,
+                        Version = c.Version
+                    }).OrderBy(c => c.ProjectTitle).ToList();
+                    break;
+                case 2:
+                    projects = DBCotext.Projects.Select(c => new ProjectDTO
+                    {
+                        ProjectId = c.ProjectId,
+                        ProjectDescription = c.ProjectDescription,
+                        Complexity = c.Complexity,
+                        ProjectStartDate = c.ProjectStartDate,
+                        ProjectTitle = c.ProjectTitle,
+                        Version = c.Version
+                    }).OrderByDescending(c => c.ProjectTitle).ToList();
+                    break;
+                case 3:
+                    projects = DBCotext.Projects.Select(c => new ProjectDTO
+                    {
+                        ProjectId = c.ProjectId,
+                        ProjectDescription = c.ProjectDescription,
+                        Complexity = c.Complexity,
+                        ProjectStartDate = c.ProjectStartDate,
+                        ProjectTitle = c.ProjectTitle,
+                        Version = c.Version
+                    }).OrderBy(c => c.ProjectStartDate).ToList();
+                    break;
+                case 4:
+                    projects = DBCotext.Projects.Select(c => new ProjectDTO
+                    {
+                        ProjectId = c.ProjectId,
+                        ProjectDescription = c.ProjectDescription,
+                        Complexity = c.Complexity,
+                        ProjectStartDate = c.ProjectStartDate,
+                        ProjectTitle = c.ProjectTitle,
+                        Version = c.Version
+                    }).OrderByDescending(c => c.ProjectStartDate).ToList();
+                    break;
+                case 5:
+                    projects = DBCotext.Projects.Select(c => new ProjectDTO
+                    {
+                        ProjectId = c.ProjectId,
+                        ProjectDescription = c.ProjectDescription,
+                        Complexity = c.Complexity,
+                        ProjectStartDate = c.ProjectStartDate,
+                        ProjectTitle = c.ProjectTitle,
+                        Version = c.Version
+                    }).OrderBy(c => c.Complexity).ToList();
+                    break;
+                default:
+                    projects = DBCotext.Projects.Select(c => new ProjectDTO
+                    {
+                        ProjectId = c.ProjectId,
+                        ProjectDescription = c.ProjectDescription,
+                        Complexity = c.Complexity,
+                        ProjectStartDate = c.ProjectStartDate,
+                        ProjectTitle = c.ProjectTitle,
+                        Version = c.Version
+                    }).OrderBy(c => c.ProjectTitle).ToList();
+                    break;
+            }
             return View(projects.ToPagedList(pageNumber, pageSize));
         }
 
@@ -57,7 +123,7 @@ namespace Canaro_Trello.Controllers
         [HttpPost]
         public ActionResult AddProject(Project project)
         {
-            if(ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
                 Project pro = new Project()
                 {
@@ -73,7 +139,7 @@ namespace Canaro_Trello.Controllers
             }
             else
             {
-                ModelState.AddModelError("ProjectTitle", "Complete the requested fields!");
+                ModelState.AddModelError("ProjectId", "Complete the requested fields!");
                 return View(project);
             }
             
@@ -95,16 +161,26 @@ namespace Canaro_Trello.Controllers
             return View(pro);
         }
 
-        [HttpPut]
+        [HttpPost]
         public ActionResult EditProject(Project project)
         {
-            return View();
+            var pro = DBCotext.Projects.Find(project.ProjectId);
+            pro.ProjectDescription = project.ProjectDescription;
+            pro.Complexity = project.Complexity;
+            pro.ProjectStartDate = project.ProjectStartDate;
+            pro.ProjectTitle = project.ProjectTitle;
+            pro.Version = project.Version;
+            DBCotext.SaveChanges();
+            return RedirectToAction("GetAllProjects");
         }
 
-        [HttpDelete]
+        [HttpGet]
         public ActionResult DeleteProject(Guid index)
         {
-            return View();
+            var pro = DBCotext.Projects.Find(index);
+            DBCotext.Projects.Remove(pro);
+            DBCotext.SaveChanges();
+            return RedirectToAction("GetAllProjects");
         }
     }
 }

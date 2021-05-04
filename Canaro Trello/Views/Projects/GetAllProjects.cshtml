@@ -13,9 +13,24 @@
     </div>
 }
 
-<p class="w3-button w3-teal w3-right menu-item">
-    @Html.ActionLink("Create New", "AddProject")
-</p>
+    <div>
+        <p class="w3-button w3-teal w3-right menu-item">
+            @Html.ActionLink("Create New", "AddProject")
+        </p>
+        <p class="w3-left sort-select-list">
+            <div class="w3-dropdown-hover">
+                <button class="w3-button">Sort<i class="material-icons">arrow_drop_down</i></button>
+                <div class="w3-dropdown-content w3-bar-block w3-card-4 w3-center w3-padding-16">
+                    <a href="/Projects/GetAllProjects?page=1&sort=1">Title ASC</a> <br /><hr />
+                    <a href="/Projects/GetAllProjects?page=1&sort=2">Title DESC</a> <br /><hr />
+                    <a href="/Projects/GetAllProjects?page=1&sort=3">Start date ASC</a> <br /><hr />
+                    <a href="/Projects/GetAllProjects?page=1&sort=4">Start date DESC</a> <br /><hr />
+                    <a href="/Projects/GetAllProjects?page=1&sort=5">Complexity</a>
+                </div>
+            </div>
+        </p>
+    </div>
+
 
 <div class="w3-container">
     @foreach (var item in Model)

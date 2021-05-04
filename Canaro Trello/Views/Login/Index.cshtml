@@ -1,0 +1,48 @@
+﻿@model Canaro_Trello.Models.User
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/utils")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="login-body">
+    <div class="w3-card-4 center-div w3-padding-24 w3-white" style=" width: 50%;">
+
+        <header class="w3-container w3-teal w3-center">
+            <h1>Login Form</h1>
+        </header>
+
+        <div class="w3-container w3-padding-32">
+            <form class="w3-container" action="/Login/Index" method="post">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.UserId)
+                <p>
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "w3-text-teal w3-indent" })<span class="w3-text-teal">*</span>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "w3-input w3-border-teal" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </p>
+                <p>
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "w3-text-teal w3-indent" })<span class="w3-text-teal">*</span>
+                    @Html.PasswordFor(model => model.Password, new { @class = "w3-input w3-border-teal" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </p>
+                <footer class="w3-container w3-center">
+                    <input type="submit" value="Login" class="w3-btn w3-teal" />
+                    <a href="/Login/Register" class="w3-btn w3-tarhon w3-center">Register</a>
+                </footer>
+            </form>
+        </div>
+
+        
+
+    </div>
+</body>
+</html>

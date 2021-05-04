@@ -13,21 +13,35 @@ namespace Canaro_Trello.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid TaskId { get; set; }
+        [Display(Name = "Task Title")]
+        [Required(ErrorMessage = "Please enter task title.")]
         public string TaskTitle { get; set; }
+        [Display(Name = "State")]
         public State State { get; set; }
+        [Display(Name = "Type")]
+        [Required(ErrorMessage = "Please enter task type.")]
         public string Type { get; set; }
+        [Display(Name = "Priority")]
         public Priority Priority { get; set; }
         public Guid? UserId { get; set; }
         [ForeignKey("UserId")]
+        [Display(Name = "Assigned User")]
         public User AssignedUser { get; set; }
         public Guid? ProjectId { get; set; }
         [ForeignKey("ProjectId")]
+        [Display(Name = "Project")]
         public Project Project { get; set; }
         [DataType(DataType.Date)]
+        [Display(Name = "Task Start Date")]
+        [Required(ErrorMessage = "Please enter task start date.")]
         public DateTime? TaskStardDate { get; set; }
         [DataType(DataType.Date)]
+        [Display(Name = "Task End Date")]
         public DateTime? TaskEndDate { get; set; }
+        [Display(Name = "Estimated Time")]
+        [Required(ErrorMessage = "Please enter task estimated time.")]
         public string EstimatedTime { get; set; }
+        [Display(Name = "Task Description")]
         public string TaskDescription { get; set; }
     }
 

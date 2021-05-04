@@ -1,7 +1,7 @@
 ﻿@model Canaro_Trello.Models.ProjectDTO
 
 @{
-    ViewBag.Title = "Add a new project";
+    ViewBag.Title = "Edit project";
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
 
@@ -11,14 +11,15 @@
     </div>
 }
 
-@using (Html.BeginForm("AddProject", "Projects"))
+@using (Html.BeginForm("EditProject", "Projects", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="w3-container">
-        <h4>Complete the fields required to add a new project </h4>
+        <h4>Edit the desired fields</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ProjectId)
         <p>
             @Html.LabelFor(model => model.ProjectTitle, htmlAttributes: new { @class = "w3-text-teal w3-indent" })<span class="w3-text-teal">*</span>
             @Html.EditorFor(model => model.ProjectTitle, new { htmlAttributes = new { @class = "w3-input w3-border w3-border-teal w3-round-large" } })
@@ -38,7 +39,7 @@
 
         <p>
             @Html.LabelFor(model => model.ProjectStartDate, htmlAttributes: new { @class = "w3-text-teal w3-indent" })<span class="w3-text-teal">*</span>
-            @Html.EditorFor(model => model.ProjectStartDate, new { htmlAttributes = new { @class = "w3-input w3-border w3-border-teal w3-round-large" } })
+            @Html.TextBoxFor(model => model.ProjectStartDate, "{0:MM/dd/yyyy}", htmlAttributes: new { @class = "w3-input w3-border w3-border-teal w3-round-large", @value = Model.ProjectStartDate })
             @Html.ValidationMessageFor(model => model.ProjectStartDate, "", new { @class = "text-danger" })
         </p>
 

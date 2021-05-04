@@ -18,6 +18,7 @@ namespace Canaro_Trello.Models
         [Required(ErrorMessage = "Please enter project version.")]
         public string Version { get; set; }
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         [Display(Name = "Project start date")]
         [Required(ErrorMessage = "Please select project start date.")]
         public DateTime ProjectStartDate { get; set; }

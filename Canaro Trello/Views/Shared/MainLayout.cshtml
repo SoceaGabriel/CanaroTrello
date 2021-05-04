@@ -14,17 +14,20 @@
 </head>
 <body>
     <nav class="w3-bar w3-teal">
-        <span class="w3-bar-item  w3-mobile menu-item w3-serif"><img src="../Images/logo.svg" alt="Logo Canaro Trello" width="34px" /> &nbsp; @Html.ActionLink("Canaro Trello", "Index", "Home")</span>
-        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Home", "Index", "Home")</span>
+        <span class="w3-bar-item  w3-mobile menu-item w3-serif"><img src="../Images/logo.svg" alt="Logo Canaro Trello" width="34" /> &nbsp; @Html.ActionLink("Canaro Trello", "Index", "Home")</span>
         <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Activity ", "About", "Home")</span>
-        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Tickets", "Contact", "Home")</span>
+        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Tasks", "GetAllTasks", "Tasks")</span>
         <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Projects", "GetAllProjects", "Projects")</span>
         <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("My Profile", "Contact", "Home")</span>
+        <span class="w3-bar-item w3-mobile hello-user w3-serif w3-padding-16 w3-right">
+            <a href="/Login/Logout">Logout</a>
+        </span>
+        <span class="w3-bar-item w3-mobile hello-user w3-serif w3-padding-16 w3-right">Hello, @Session["CanaroAuthUser"]!</span>
     </nav>
-        @RenderSection("PageTitle", true)
+    @RenderSection("PageTitle", true)
     <div class="w3-row">
         <div class="w3-threequarter">
-        
+
             <div class="main-content w3-card custom-body">
                 @RenderBody()
             </div>

@@ -1,0 +1,75 @@
+﻿@model Canaro_Trello.Models.Task
+
+@{
+    ViewBag.Title = "Add Task";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+@section PageTitle{
+    <div class="w3-padding-16 w3-center">
+        <h1 class="w3-serif">Add a new task</h1>
+    </div>
+}
+
+@using (Html.BeginForm("AddTask", "Tasks"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="w3-container">
+        <h4>Complete the fields required to add a new task </h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.TaskId)
+        <p>
+            @Html.LabelFor(model => model.TaskTitle, htmlAttributes: new { @class = "w3-text-teal w3-indent" })<span class="w3-text-teal">*</span>
+            @Html.EditorFor(model => model.TaskTitle, new { htmlAttributes = new { @class = "w3-input w3-border w3-border-teal w3-round-large" } })
+            @Html.ValidationMessageFor(model => model.TaskTitle, "", new { @class = "text-danger" })
+        </p>
+        <p>
+            @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "w3-text-teal w3-indent" })
+            @Html.EnumDropDownListFor(model => model.State, htmlAttributes: new { @class = "w3-input w3-border w3-border-teal w3-round-large" })
+            @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "w3-text-teal w3-indent" })<span class="w3-text-teal">*</span>
+            @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "w3-input w3-border w3-border-teal w3-round-large" } })
+            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "w3-text-teal w3-indent" })
+            @Html.EnumDropDownListFor(model => model.Priority, htmlAttributes: new { @class = "w3-input w3-border w3-border-teal w3-round-large" })
+            @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.TaskStardDate, htmlAttributes: new { @class = "w3-text-teal w3-indent" })<span class="w3-text-teal">*</span>
+            @Html.EditorFor(model => model.TaskStardDate, new { htmlAttributes = new { @class = "w3-input w3-border w3-border-teal w3-round-large" } })
+            @Html.ValidationMessageFor(model => model.TaskStardDate, "", new { @class = "text-danger" })
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.TaskEndDate, htmlAttributes: new { @class = "w3-text-teal w3-indent" })
+            @Html.EditorFor(model => model.TaskEndDate, new { htmlAttributes = new { @class = "w3-input w3-border w3-border-teal w3-round-large" } })
+            @Html.ValidationMessageFor(model => model.TaskEndDate, "", new { @class = "text-danger" })
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.EstimatedTime, htmlAttributes: new { @class = "w3-text-teal w3-indent" })<span class="w3-text-teal">*</span>
+            @Html.EditorFor(model => model.EstimatedTime, new { htmlAttributes = new { @class = "w3-input w3-border w3-border-teal w3-round-large" } })
+            @Html.ValidationMessageFor(model => model.EstimatedTime, "", new { @class = "text-danger" })
+        </p>
+
+        <p>
+            @Html.LabelFor(model => model.TaskDescription, htmlAttributes: new { @class = "w3-text-teal w3-indent" })
+            @Html.EditorFor(model => model.TaskDescription, new { htmlAttributes = new { @class = "w3-input w3-border w3-border-teal w3-round-large" } })
+            @Html.ValidationMessageFor(model => model.TaskDescription, "", new { @class = "text-danger" })
+        </p>
+
+        <div class="w3-center">
+            <input type="submit" value="Add task" class="w3-btn w3-teal" />
+            <div class="w3-btn w3-tarhon"><a href="/Tasks/GetAllTasks">Back to tasks list</a></div>
+        </div>
+    </div>
+}
