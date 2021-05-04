@@ -41,7 +41,7 @@ namespace Canaro_Trello.Models
         [Display(Name = "Estimated Time")]
         [Required(ErrorMessage = "Please enter task estimated time.")]
         public string EstimatedTime { get; set; }
-        [Display(Name = "Task Description")]
+        [Display(Name = "Task Description")] 
         public string TaskDescription { get; set; }
     }
 
