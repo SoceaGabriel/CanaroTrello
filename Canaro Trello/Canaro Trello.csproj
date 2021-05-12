@@ -197,6 +197,30 @@
     <Compile Include="Migrations\202104281945049_Add roles to user table.designer.cs">
       <DependentUpon>202104281945049_Add roles to user table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105101952343_Space.cs" />
+    <Compile Include="Migrations\202105101952343_Space.designer.cs">
+      <DependentUpon>202105101952343_Space.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105102029490_Space space.cs" />
+    <Compile Include="Migrations\202105102029490_Space space.designer.cs">
+      <DependentUpon>202105102029490_Space space.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105112030003_TaskModel update.cs" />
+    <Compile Include="Migrations\202105112030003_TaskModel update.designer.cs">
+      <DependentUpon>202105112030003_TaskModel update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105121558482_None.cs" />
+    <Compile Include="Migrations\202105121558482_None.designer.cs">
+      <DependentUpon>202105121558482_None.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105121611240_nullable guid.cs" />
+    <Compile Include="Migrations\202105121611240_nullable guid.designer.cs">
+      <DependentUpon>202105121611240_nullable guid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105121639404_string guids.cs" />
+    <Compile Include="Migrations\202105121639404_string guids.designer.cs">
+      <DependentUpon>202105121639404_string guids.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectDTO.cs" />
@@ -296,6 +320,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104281945049_Add roles to user table.resx">
       <DependentUpon>202104281945049_Add roles to user table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105101952343_Space.resx">
+      <DependentUpon>202105101952343_Space.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105102029490_Space space.resx">
+      <DependentUpon>202105102029490_Space space.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105112030003_TaskModel update.resx">
+      <DependentUpon>202105112030003_TaskModel update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105121558482_None.resx">
+      <DependentUpon>202105121558482_None.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105121611240_nullable guid.resx">
+      <DependentUpon>202105121611240_nullable guid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105121639404_string guids.resx">
+      <DependentUpon>202105121639404_string guids.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

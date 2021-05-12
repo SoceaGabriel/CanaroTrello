@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Canaro_Trello.Models.TaskDTO>
-
+﻿@model PagedList.IPagedList<Canaro_Trello.Models.TaskDTO>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Tasks List";
     Layout = "~/Views/Shared/MainLayout.cshtml";
@@ -19,12 +19,49 @@
         <div class="w3-dropdown-hover">
             <button class="w3-button">Sort<i class="material-icons">arrow_drop_down</i></button>
             <div class="w3-dropdown-content w3-bar-block w3-card-4 w3-center w3-padding-16">
-                <a href="/Projects/GetAllProjects?page=1&sort=1">Title ASC</a> <br /><hr />
-                <a href="/Projects/GetAllProjects?page=1&sort=2">Title DESC</a> <br /><hr />
-                <a href="/Projects/GetAllProjects?page=1&sort=3">Start date ASC</a> <br /><hr />
-                <a href="/Projects/GetAllProjects?page=1&sort=4">Start date DESC</a> <br /><hr />
-                <a href="/Projects/GetAllProjects?page=1&sort=5">Complexity</a>
+                <a href="/Tasks/GetAllTasks?page=1&sort=1">State</a> <br /><hr />
+                <a href="/Tasks/GetAllTasks?page=1&sort=2">Priority</a> <br /><hr />
+                <a href="/Tasks/GetAllTasks?page=1&sort=3">User</a> <br /><hr />
+                <a href="/Tasks/GetAllTasks?page=1&sort=4">Project</a> <br /><hr />
+                <a href="/Tasks/GetAllTasks?page=1&sort=5">Start date ASC</a><hr />
+                <a href="/Tasks/GetAllTasks?page=1&sort=6">Start date DESC</a><hr />
+                <a href="/Tasks/GetAllTasks?page=1&sort=7">End date ASC</a><hr />
+                <a href="/Tasks/GetAllTasks?page=1&sort=8">End date DESC</a><hr />
             </div>
         </div>
     </p>
+</div>
+
+<div class="w3-container">
+    @foreach (var item in Model)
+    {
+        <div class="w3-card-4">
+            <header class="w3-container w3-2021-rust w3-indent">
+                <h3 class="w3-serif w3-left"><a href="/Tasks/GetTask?index=@Html.DisplayFor(modelItem => item.TaskId)">@Html.DisplayFor(modelItem => item.TaskTitle)</a></h3>
+                @if(Session["CanaroAuthRole"].Equals(Canaro_Trello.Models.Roles.ADMIN))
+                {
+                <div class="w3-right">
+                    <a href="/Tasks/EditTask?index=@Html.DisplayFor(modelItem => item.TaskId)" title="Edit"><i class="material-icons" style="font-size:30px;color:white; padding-top: 10px">create</i></a>
+                    <a href="/Tasks/DeleteTask?index=@Html.DisplayFor(modelItem => item.TaskId)"><i class="material-icons" style="font-size:30px;color:white; padding-right: 10px" title="Delete">delete</i></a>
+                </div>                
+                }
+            </header>
+
+            <div class="w3-container w3-padding">
+                <div class="w3-padding">@Html.DisplayFor(modelItem => item.TaskDescription)</div> <hr />
+                <div class="w3-left">
+                    Start Date: @Html.DisplayFor(modelItem => item.TaskStardDate) <br />
+                    State:@Html.DisplayFor(modelItem => item.State)
+                </div>
+                <div class="w3-right">
+                    User asigned: @Html.DisplayFor(modelItem => item.AssignedUser.FirstName) @Html.DisplayFor(modelItem => item.AssignedUser.LastName)
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="w3-center w3-margin-top">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("GetAllTasks", new { page }))
 </div>

@@ -34,7 +34,9 @@ namespace Canaro_Trello.Controllers
                     if (usr != null)
                     {
                         Session["CanaroAuthUser"] = usr.FirstName + " " + usr.LastName;
+                        Session["CanaroAuthUserId"] = usr.UserId;
                         Session["CanaroAuthEmail"] = usr.Email;
+                        Session["CanaroAuthRole"] = usr.Role;
                         return RedirectToAction("Index", "Home");
                     }
                     else
@@ -94,8 +96,8 @@ namespace Canaro_Trello.Controllers
                     };
                     DBContext.Utilizatori.Add(utilizator);
                     DBContext.SaveChanges();
-                    Session["CanaroAuthUser"] = usr.FirstName + " " + usr.LastName;
-                    Session["CanaroAuthEmail"] = usr.Email;
+                    Session["CanaroAuthUser"] = user.FirstName + " " + user.LastName;
+                    Session["CanaroAuthEmail"] = user.Email;
                     return RedirectToAction("Index", "Home");
                 }
             }

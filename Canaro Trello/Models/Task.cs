@@ -23,10 +23,12 @@ namespace Canaro_Trello.Models
         public string Type { get; set; }
         [Display(Name = "Priority")]
         public Priority Priority { get; set; }
+        [Display(Name = "User")]
         public Guid? UserId { get; set; }
         [ForeignKey("UserId")]
         [Display(Name = "Assigned User")]
         public User AssignedUser { get; set; }
+        [Display(Name = "Select project")]
         public Guid? ProjectId { get; set; }
         [ForeignKey("ProjectId")]
         [Display(Name = "Project")]
@@ -43,6 +45,10 @@ namespace Canaro_Trello.Models
         public string EstimatedTime { get; set; }
         [Display(Name = "Task Description")]  
         public string TaskDescription { get; set; }
+        [Display(Name = "Select user")]
+        public string UserIdString { get; set; }
+        [Display(Name = "Select project")]
+        public string ProjectIdString { get; set; }
     }
 
     public enum State
