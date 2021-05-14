@@ -11,95 +11,77 @@
     </div>
 }
 
-<h2>Get Task</h2>
+    <div class="w3-container">
+        <div class="w3-container">
+            <div class="w3-left"><h3 class="w3-serif">@Html.DisplayFor(model => model.TaskTitle)</h3></div>
+            @{if (Session["CanaroAuthRole"].Equals(Canaro_Trello.Models.Roles.ADMIN))
+                {
+                <div class="w3-right">
+                    <a href="/Tasks/EditTask?index=@Html.DisplayFor(modelItem => modelItem.TaskId)" title="Edit"><i class="material-icons" style="font-size:30px;color:black; padding-top: 10px">create</i></a>
+                    <a href="/Tasks/DeleteTask?index=@Html.DisplayFor(modelItem => modelItem.TaskId)"><i class="material-icons" style="font-size:30px;color:black; padding-right: 10px" title="Delete">delete</i></a>
+                </div>
+                }
+            }
+        </div>
+        <hr />
 
-<div>
-    <h4>Task</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AssignedUser.FirstName)
-        </dt>
+        <div>
+            <h5 class="w3-indent">
+                <b class="w3-text-teal">@Html.DisplayNameFor(model => model.AssignedUser.FirstName):</b>
+                <a href="#">@Html.DisplayFor(model => model.AssignedUser.FirstName) @Html.DisplayFor(model => model.AssignedUser.LastName)</a>
+            </h5>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.AssignedUser.FirstName)
-        </dd>
+        <div>
+            <h5 class="w3-indent">
+                <b class="w3-text-teal">@Html.DisplayNameFor(model => model.Project):</b>
+                <a href="/Projects/GetProject?index=@Html.DisplayFor(modelItem => modelItem.Project.ProjectId)">@Html.DisplayFor(modelItem => modelItem.Project.ProjectTitle)</a>
+            </h5>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Project.ProjectTitle)
-        </dt>
+        <div>
+            <h5 class="w3-indent">
+                <b class="w3-text-teal">@Html.DisplayNameFor(model => model.State):</b>
+                @Html.DisplayFor(model => model.State)
+            </h5>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Project.ProjectTitle)
-        </dd>
+        <div>
+            <h5 class="w3-indent">
+                <b class="w3-text-teal">@Html.DisplayNameFor(model => model.Priority):</b>
+                @Html.DisplayFor(model => model.Priority)
+            </h5>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TaskTitle)
-        </dt>
+        <div>
+            <h5 class="w3-indent">
+                <b class="w3-text-teal">@Html.DisplayNameFor(model => model.TaskStardDate):</b>
+                @Html.DisplayFor(model => model.TaskStardDate)
+            </h5>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.TaskTitle)
-        </dd>
+        <div>
+            <h5 class="w3-indent">
+                <b class="w3-text-teal">@Html.DisplayNameFor(model => model.TaskEndDate):</b>
+                @Html.DisplayFor(model => model.TaskEndDate)
+            </h5>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.State)
-        </dt>
+        <div>
+            <h5 class="w3-indent">
+                <b class="w3-text-teal">@Html.DisplayNameFor(model => model.EstimatedTime):</b>
+                @Html.DisplayFor(model => model.EstimatedTime)
+            </h5>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.State)
-        </dd>
+        <div>
+            <h5 class="w3-indent"><b class="w3-text-teal">@Html.DisplayNameFor(model => model.TaskDescription):</b></h5>
+            <div class="w3-panel w3-padding-32 w3-indent w3-round-large" style="background-color: #ffffc2;">
+                @Html.DisplayFor(model => model.TaskDescription)
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Priority)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Priority)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TaskStardDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TaskStardDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TaskEndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TaskEndDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EstimatedTime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EstimatedTime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TaskDescription)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TaskDescription)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TaskId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        <div class="w3-center">
+            <div class="w3-btn w3-2021-rust "><a href="/Tasks/GetAllTasks">Back to tasks list</a></div>
+        </div>
+    </div>

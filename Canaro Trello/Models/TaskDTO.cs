@@ -33,5 +33,9 @@ namespace Canaro_Trello.Models
         public string EstimatedTime { get; set; }
         [Display(Name = "Task Description")]
         public string TaskDescription { get; set; }
+        [Display(Name = "Select user")]
+        public string UserIdString { get; set; }
+        [Display(Name = "Select project")]
+        public string ProjectIdString { get; set; }
     }
 }

@@ -1764,7 +1764,7 @@ a {
     text-decoration: none;
 }
 
-.w3-tarhon a {
+.w3-tarhon a, .w3-2021-rust a {
     text-decoration: none;
     color: white;
 }
