@@ -365,5 +365,30 @@ namespace Canaro_Trello.Controllers
             DBCotext.SaveChanges();
             return RedirectToAction("GetAllTasks");
         }
+
+        [HttpGet]
+        public ActionResult Activity(int? page)
+        {
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            IEnumerable<TaskDTO> tasks = null;
+            tasks = DBCotext.Tasks.Where(c => c.State == State.FINISHED).Select(c => new TaskDTO
+            {
+                TaskId = c.TaskId,
+                UserId = (Guid)c.UserId,
+                ProjectId = (Guid)c.ProjectId,
+                AssignedUser = c.AssignedUser,
+                Project = c.Project,
+                EstimatedTime = c.EstimatedTime,
+                Priority = c.Priority,
+                State = c.State,
+                TaskDescription = c.TaskDescription,
+                TaskEndDate = c.TaskEndDate,
+                TaskStardDate = c.TaskStardDate,
+                TaskTitle = c.TaskTitle,
+                Type = c.Type
+            }).OrderByDescending(c => c.TaskEndDate).ToList();
+            return View(tasks.ToPagedList(pageNumber, pageSize));
+        }
     }
 }

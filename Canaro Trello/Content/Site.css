@@ -38,11 +38,11 @@
     font-size: 22px;
 }
 
-.menu-item a {
+.menu-item a{
     color: white;
 }
 
-.menu-item a:hover {
+.menu-item a:hover{
     text-decoration: none;
     color: white;
 }
@@ -104,8 +104,35 @@
     background-size: cover;
 }
 
+.w3-width-90-left{
+    width: 90%;
+    height: auto;
+    position: relative;
+    float: left;
+}
+
+.w3-width-90-right {
+    width: 90%;
+    height: auto;
+    position: relative;
+    float: right;
+}
+
 @media screen and (min-width: 600px) {
     .menu-item {
         margin-left: 20px;
     }
+}
+
+.task-title-white, .task-title-black{
+}
+
+.task-title-white:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.task-title-black:hover {
+    text-decoration: none;
+    color: black;
 }

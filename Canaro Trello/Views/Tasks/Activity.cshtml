@@ -1,0 +1,72 @@
+﻿@model PagedList.IPagedList<Canaro_Trello.Models.TaskDTO>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Activity";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+@section PageTitle{
+    <div class="w3-padding-16 w3-center">
+        <h1 class="w3-serif">Resolved tasks</h1>
+    </div>
+}
+
+    <div class="w3-container">
+        @{
+            if (Model.Count == 0)
+            {
+                <h3 class="w3-panel w3-2021-burnt-coral w3-padding w3-center w3-serif">There are no resolved tasks!</h3>
+            }
+            else
+            {
+                int count = 0;
+                foreach (var item in Model)
+                {
+                    if (count % 2 == 0)
+                        {
+                            <div class="w3-card-4 w3-margin-bottom w3-width-90-left">
+                                <header class="w3-container w3-2021-amethyst-orchid w3-indent">
+                                    <h3 class="w3-serif w3-left"><a class="task-title-white" href="/Tasks/GetTask?taskId=@Html.DisplayFor(modelItem => item.TaskId)">@Html.DisplayFor(modelItem => item.TaskTitle)</a> - @Html.DisplayFor(model => item.AssignedUser.FirstName) @Html.DisplayFor(model => item.AssignedUser.LastName)</h3>
+                                </header>
+                                <div class="w3-container w3-padding">
+                                    <div class="w3-indent">@Html.DisplayFor(modelItem => item.TaskDescription)</div> <hr />
+                                    <div class="w3-left">
+                                        Start Date: @Html.DisplayFor(modelItem => item.TaskStardDate) <br />
+                                        End Date: @Html.DisplayFor(modelItem => item.TaskStardDate)
+                                    </div>
+                                    <div class="w3-right">
+                                        Project: <a href="/Projects/GetProject?index=@Html.DisplayFor(modelItem => item.Project.ProjectId)">@Html.DisplayFor(modelItem => item.Project.ProjectTitle)</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="w3-card-4 w3-margin-bottom w3-width-90-right">
+                                <header class="w3-container w3-2021-desert-mist w3-indent">
+                                    <h3 class="w3-serif w3-right"><a class="task-title-black" href="/Tasks/GetTask?taskId=@Html.DisplayFor(modelItem => item.TaskId)">@Html.DisplayFor(modelItem => item.TaskTitle)</a> - @Html.DisplayFor(model => item.AssignedUser.FirstName) @Html.DisplayFor(model => item.AssignedUser.LastName)</h3>
+                                </header>
+                                <div class="w3-container w3-padding">
+                                    <div class="w3-indent">@Html.DisplayFor(modelItem => item.TaskDescription)</div> <hr />
+                                    <div class="w3-left">
+                                        Start Date: @Html.DisplayFor(modelItem => item.TaskStardDate) <br />
+                                        End Date: @Html.DisplayFor(modelItem => item.TaskStardDate)
+                                    </div>
+                                    <div class="w3-right">
+                                        Project: <a href="/Projects/GetProject?index=@Html.DisplayFor(modelItem => item.Project.ProjectId)">@Html.DisplayFor(modelItem => item.Project.ProjectTitle)</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    count++;
+                }
+            }
+        }
+    </div>
+
+<div class="w3-center w3-margin-top">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Activity", new { page }))
+</div>
+
+

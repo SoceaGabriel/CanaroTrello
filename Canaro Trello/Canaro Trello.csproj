@@ -281,6 +281,7 @@
     <Content Include="Views\Tasks\GetAllTasks.cshtml" />
     <Content Include="Views\Tasks\AddTask.cshtml" />
     <Content Include="Views\Tasks\EditTask.cshtml" />
+    <Content Include="Views\Tasks\Activity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
