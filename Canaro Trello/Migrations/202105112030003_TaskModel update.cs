@@ -5,10 +5,10 @@
     
     public partial class TaskModelupdate : DbMigration
     {
-        public override void Up()
+        public override void Up() 
         {
         }
-        
+         
         public override void Down()
         {
         }

@@ -1,0 +1,263 @@
+﻿@model Canaro_Trello.Models.UserDTO
+
+@{
+    ViewBag.Title = "My Profile";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+ 
+@section PageTitle{
+    <div class="w3-padding-16 w3-center">
+        <h1 class="w3-serif">My Profile</h1>
+    </div>
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div class="w3-container">
+
+    @{
+        if (Session["CanaroAuthRole"].Equals(Canaro_Trello.Models.Roles.ADMIN))
+        {
+            <!-- Get admin role to user -->
+            <button onclick="myFunction('GetAdminRoleToNormalUser')" class="w3-btn w3-block w3-margin-bottom w3-light-grey w3-round-brd">
+                Get admin role to user
+            </button>
+            <div id="GetAdminRoleToNormalUser" class="w3-container w3-padding-32 w3-hide w3-center w3-card w3-margin-bottom">
+                <div>
+                    <form class="" id="getUserAdminRole" method="post" action="GetAdminRole">
+                        <label for="usersList">Select user from list:</label>
+                        <select name="selectedUser" id="usersList" class="w3-input w3-border w3-border-teal w3-round-large"></select>
+                        <input type="submit" value="Change user role" class="w3-btn w3-teal w3-serif w3-margin-top" />
+                    </form>
+                </div>
+                <script>
+                    $.ajax({
+                        url: '/Users/GetUserList',
+                        type: 'GET',
+                        success: function (result) {
+                            
+                            for (var i in result) {
+                                var z = document.createElement("option");
+                                z.setAttribute("value", result[i].Value);
+                                var t = document.createTextNode(result[i].Text);
+                                z.appendChild(t);
+                                document.getElementById("usersList").appendChild(z);
+                            }
+                        }
+                    });
+                </script>
+            </div>
+        }
+    }
+
+    <!-- Change profile info -->
+    <button onclick="myFunction('ChangeProfileInfo')" class="w3-btn w3-block w3-margin-bottom w3-light-grey w3-round-brd">
+        Change profile info
+    </button>
+    <div id="ChangeProfileInfo" class="w3-hide w3-center w3-card w3-margin-bottom">
+        <p>Lorem ipsum...</p>
+    </div>
+
+    <!-- To do tasks -->
+    <button onclick="myFunction('ToDoTasks')" class="w3-btn w3-block w3-light-grey w3-margin-bottom w3-round-brd">
+        TODO tasks
+    </button>
+    <div id="ToDoTasks" class="w3-hide w3-container w3-padding-32 w3-card w3-center w3-margin-bottom">
+        <script>
+            $.ajax({
+                url: '/Users/GetToDoTasks',
+                type: 'GET',
+                data: {
+                    "userId": "@Session["CanaroAuthUserId"].ToString()"
+                },
+                success: function (result) {
+
+                    if (result.length > 0) {
+                        for (var i in result) {
+                            
+                            var cardDiv = document.createElement("div");
+                            var content = document.createElement("div");
+                            var left = document.createElement("div");
+                            var right = document.createElement("div");
+                            var hr = document.createElement("hr");
+                            var header = document.createElement("header");
+                            var link = document.createElement("a");
+                            var leftText = document.createTextNode("Type: " + result[i].Type);
+                            var rightText = document.createTextNode("Project: " + result[i].Project.ProjectTitle);
+                            var atext = document.createTextNode(result[i].TaskTitle);
+                            var desc = document.createElement("div");
+                            var br = document.createElement("br");
+                            var descTitle = document.createTextNode(result[i].TaskDescription);
+                            desc.setAttribute("class", "w3-indent w3-left");
+                            content.setAttribute("class", "w3-container w3-padding");
+                            cardDiv.setAttribute("id", result[i].TaskId);
+                            cardDiv.setAttribute("class", "w3-card-4 w3-margin-bottom");
+                            left.setAttribute("class", "w3-left");
+                            right.setAttribute("class", "w3-right");
+                            header.setAttribute("class", "w3-container w3-2021-mint w3-indent w3-padding-16");                           
+                            link.setAttribute("href", "/Tasks/GetTask?taskId=" + result[i].TaskId);
+                            link.setAttribute("class", "w3-left");
+                            desc.appendChild(descTitle);
+                            link.appendChild(atext);
+                            header.appendChild(link);             
+                            left.appendChild(leftText);
+                            right.appendChild(rightText);
+                            cardDiv.appendChild(header);
+                            
+                            content.appendChild(desc);
+                            content.appendChild(br);
+                            content.appendChild(hr);
+                            content.appendChild(left);
+                            content.appendChild(right);
+                            cardDiv.appendChild(content);
+                            document.getElementById("ToDoTasks").appendChild(cardDiv);
+                        }
+                    }
+                    
+                }
+            });
+        </script>
+    </div>
+
+    <!-- In progress tasks -->
+    <button onclick="myFunction('InProgressTasks')" class="w3-btn w3-block w3-light-grey w3-margin-bottom w3-round-brd">
+        In Progress tasks
+    </button>
+    <div id="InProgressTasks" class="w3-hide w3-center w3-card w3-margin-bottom">
+        <script>
+            $.ajax({
+                url: '/Users/GetInProgressTasks',
+                type: 'GET',
+                data: {
+                    "userId": "@Session["CanaroAuthUserId"].ToString()"
+                },
+                success: function (result) {
+
+                    if (result.length > 0) {
+                        for (var i in result) {
+
+                            var cardDiv = document.createElement("div");
+                            var content = document.createElement("div");
+                            var left = document.createElement("div");
+                            var right = document.createElement("div");
+                            var hr = document.createElement("hr");
+                            var header = document.createElement("header");
+                            var link = document.createElement("a");
+                            var leftText = document.createTextNode("Type: " + result[i].Type);
+                            var rightText = document.createTextNode("Project: " + result[i].Project.ProjectTitle);
+                            var atext = document.createTextNode(result[i].TaskTitle);
+                            var desc = document.createElement("div");
+                            var br = document.createElement("br");
+                            var descTitle = document.createTextNode(result[i].TaskDescription);
+                            desc.setAttribute("class", "w3-indent w3-left");
+                            content.setAttribute("class", "w3-container w3-padding");
+                            cardDiv.setAttribute("id", result[i].TaskId);
+                            cardDiv.setAttribute("class", "w3-card-4 w3-margin-bottom");
+                            left.setAttribute("class", "w3-left");
+                            right.setAttribute("class", "w3-right");
+                            header.setAttribute("class", "w3-container w3-2021-mint w3-indent w3-padding-16");
+                            link.setAttribute("href", "/Tasks/GetTask?taskId=" + result[i].TaskId);
+                            link.setAttribute("class", "w3-left");
+                            desc.appendChild(descTitle);
+                            link.appendChild(atext);
+                            header.appendChild(link);
+                            left.appendChild(leftText);
+                            right.appendChild(rightText);
+                            cardDiv.appendChild(header);
+
+                            content.appendChild(desc);
+                            content.appendChild(br);
+                            content.appendChild(hr);
+                            content.appendChild(left);
+                            content.appendChild(right);
+                            cardDiv.appendChild(content);
+                            document.getElementById("ToDoTasks").appendChild(cardDiv);
+                        }
+                    }
+                }
+            });
+        </script>
+    </div>
+
+    <!-- Finished tasks -->
+    <button onclick="myFunction('FinishedTasks')" class="w3-btn w3-block w3-light-grey w3-margin-bottom w3-round-brd">
+        Finished tasks
+    </button>
+    <div id="FinishedTasks" class="w3-hide w3-center w3-card w3-margin-bottom">
+        <script>
+            $.ajax({
+                url: '/Users/GetFinishedTasks',
+                type: 'GET',
+                data: {
+                    "userId": "@Session["CanaroAuthUserId"].ToString()"
+                },
+                success: function (result) {
+
+                    if (result.length > 0) {
+                        for (var i in result) {
+
+                            var cardDiv = document.createElement("div");
+                            var content = document.createElement("div");
+                            var left = document.createElement("div");
+                            var right = document.createElement("div");
+                            var hr = document.createElement("hr");
+                            var header = document.createElement("header");
+                            var link = document.createElement("a");
+                            var leftText = document.createTextNode("Type: " + result[i].Type);
+                            var rightText = document.createTextNode("Project: " + result[i].Project.ProjectTitle);
+                            var atext = document.createTextNode(result[i].TaskTitle);
+                            var desc = document.createElement("div");
+                            var br = document.createElement("br");
+                            var descTitle = document.createTextNode(result[i].TaskDescription);
+                            desc.setAttribute("class", "w3-indent w3-left");
+                            content.setAttribute("class", "w3-container w3-padding");
+                            cardDiv.setAttribute("id", result[i].TaskId);
+                            cardDiv.setAttribute("class", "w3-card-4 w3-margin-bottom");
+                            left.setAttribute("class", "w3-left");
+                            right.setAttribute("class", "w3-right");
+                            header.setAttribute("class", "w3-container w3-2021-mint w3-indent w3-padding-16");
+                            link.setAttribute("href", "/Tasks/GetTask?taskId=" + result[i].TaskId);
+                            link.setAttribute("class", "w3-left");
+                            desc.appendChild(descTitle);
+                            link.appendChild(atext);
+                            header.appendChild(link);
+                            left.appendChild(leftText);
+                            right.appendChild(rightText);
+                            cardDiv.appendChild(header);
+
+                            content.appendChild(desc);
+                            content.appendChild(br);
+                            content.appendChild(hr);
+                            content.appendChild(left);
+                            content.appendChild(right);
+                            cardDiv.appendChild(content);
+                            document.getElementById("ToDoTasks").appendChild(cardDiv);
+                        }
+                    }
+                }
+            });
+        </script>
+    </div>
+
+</div>
+<script>
+    var array = ["GetAdminRoleToNormalUser", "ChangeProfileInfo", "ToDoTasks", "InProgressTasks", "FinishedTasks"];
+    function myFunction(id) {
+        var x = document.getElementById(id);
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+            for (var arr in array) {
+                if (array[arr] != id) {
+                    var mrr = document.getElementById(array[arr]);
+                    if (mrr.className.indexOf("w3-show") != -1) {
+                        mrr.className = mrr.className.replace(" w3-show", "");
+                    }
+                }
+                
+            }
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+</script>
+

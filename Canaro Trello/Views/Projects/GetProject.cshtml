@@ -4,7 +4,7 @@
     ViewBag.Title = "GetProject";
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
-
+ 
 @section PageTitle{
     <div class="w3-padding-16 w3-center">
         <h1 class="w3-serif">Project details</h1>
@@ -14,10 +14,15 @@
     <div class="w3-container">
         <div class="w3-container">
             <div class="w3-left"><h4 class="w3-serif">@Html.DisplayFor(model => model.ProjectTitle)</h4></div>
-            <div class="w3-right">
-                <a href="/Projects/EditProject?index=@Html.DisplayFor(model => model.ProjectId)" title="Edit"><i class="material-icons" style="font-size:30px;color:black; padding-top: 10px">create</i></a>
-                <a href="/Projects/DeleteProject?index=@Html.DisplayFor(model => model.ProjectId)"><i class="material-icons" style="font-size:30px;color:black; padding-right: 10px" title="Delete">delete</i></a>
-            </div>
+            @{
+                if (Session["CanaroAuthRole"].Equals(Canaro_Trello.Models.Roles.ADMIN))
+                {
+                    <div class="w3-right">
+                        <a href="/Projects/EditProject?index=@Html.DisplayFor(model => model.ProjectId)" title="Edit"><i class="material-icons" style="font-size:30px;color:black; padding-top: 10px">create</i></a>
+                        <a href="/Projects/DeleteProject?index=@Html.DisplayFor(model => model.ProjectId)"><i class="material-icons" style="font-size:30px;color:black; padding-right: 10px" title="Delete">delete</i></a>
+                    </div>
+                }
+            }
         </div>
         <hr />
 

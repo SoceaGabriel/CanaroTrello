@@ -4,7 +4,7 @@
     using System.Data.Entity.Migrations;
     
     public partial class FullModel : DbMigration
-    {
+    { 
         public override void Up()
         {
         }

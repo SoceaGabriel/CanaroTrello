@@ -1,7 +1,7 @@
 ﻿namespace Canaro_Trello.Migrations
 {
     using System;
-    using System.Data.Entity.Migrations;
+    using System.Data.Entity.Migrations; 
     
     public partial class Updateusertable : DbMigration
     {

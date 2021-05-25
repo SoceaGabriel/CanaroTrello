@@ -9,7 +9,7 @@
         {
             DropForeignKey("dbo.Task", "UserId", "dbo.User");
             DropForeignKey("dbo.Task", "ProjectId", "dbo.Project");
-            DropIndex("dbo.Task", new[] { "UserId" });
+            DropIndex("dbo.Task", new[] { "UserId" }); 
             DropIndex("dbo.Task", new[] { "ProjectId" });
             AlterColumn("dbo.Task", "UserId", c => c.Guid(nullable: false));
             AlterColumn("dbo.Task", "ProjectId", c => c.Guid(nullable: false));

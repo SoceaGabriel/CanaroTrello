@@ -3,14 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Mvc; 
 using PagedList;
 
 namespace Canaro_Trello.Controllers
 {
     public class TasksController : Controller
     {
-        public AppContext DBCotext = AppContext.Create();
+        private AppContext DBCotext = AppContext.Create();
 
         [HttpGet]
         public ActionResult Index()
@@ -225,6 +225,7 @@ namespace Canaro_Trello.Controllers
             var users = DBCotext.Utilizatori.ToList();
             var projects = DBCotext.Projects.ToList();
             List<SelectListItem> usersName = new List<SelectListItem>();
+            List<SelectListItem> usersNameAuthUser = new List<SelectListItem>();
             List<SelectListItem> projectList = new List<SelectListItem>();
             foreach (var usr in users)
             {
@@ -232,6 +233,10 @@ namespace Canaro_Trello.Controllers
                 sel.Text = usr.FirstName + " " + usr.LastName;
                 sel.Value = usr.UserId.ToString();
                 usersName.Add(sel);
+                if(sel.Value.Equals(Session["CanaroAuthUserId"].ToString()))
+                {
+                    usersNameAuthUser.Add(sel);
+                }
             }
             foreach (var prj in projects)
             {
@@ -242,6 +247,7 @@ namespace Canaro_Trello.Controllers
             }
             ViewBag.userName = usersName;
             ViewBag.projectList = projectList;
+            ViewBag.userNameAuthUsr = usersNameAuthUser;
             return View();
         }
 

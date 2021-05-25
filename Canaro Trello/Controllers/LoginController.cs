@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
+using System.Web.Mvc; 
 using Canaro_Trello.Models;
 
 
@@ -9,7 +9,7 @@ namespace Canaro_Trello.Controllers
 {
     public class LoginController : Controller
     {
-        AppContext DBContext = AppContext.Create();
+        private AppContext DBContext = AppContext.Create();
         [HttpGet]
         public ActionResult Index()
         {

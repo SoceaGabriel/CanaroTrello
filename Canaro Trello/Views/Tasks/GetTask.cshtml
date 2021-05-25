@@ -14,12 +14,20 @@
     <div class="w3-container">
         <div class="w3-container">
             <div class="w3-left"><h3 class="w3-serif">@Html.DisplayFor(model => model.TaskTitle)</h3></div>
-            @{if (Session["CanaroAuthRole"].Equals(Canaro_Trello.Models.Roles.ADMIN))
+            @{if ((Session["CanaroAuthRole"].Equals(Canaro_Trello.Models.Roles.ADMIN) ||
+                  Model.AssignedUser.UserId.ToString().Equals(Session["CanaroAuthUserId"].ToString())) && 
+                    (Model.State != Canaro_Trello.Models.State.FINISHED))
                 {
                 <div class="w3-right">
                     <a href="/Tasks/EditTask?index=@Html.DisplayFor(modelItem => modelItem.TaskId)" title="Edit"><i class="material-icons" style="font-size:30px;color:black; padding-top: 10px">create</i></a>
                     <a href="/Tasks/DeleteTask?index=@Html.DisplayFor(modelItem => modelItem.TaskId)"><i class="material-icons" style="font-size:30px;color:black; padding-right: 10px" title="Delete">delete</i></a>
                 </div>
+                }
+                if(Model.State == Canaro_Trello.Models.State.FINISHED)
+                {
+                    <div class="w3-right w3-orange-lambo">
+                        <h3 class="w3-">&nbsp; Resolved &nbsp; </h3>
+                    </div>
                 }
             }
         </div>

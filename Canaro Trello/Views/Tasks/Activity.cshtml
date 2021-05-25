@@ -29,7 +29,19 @@
                                     <h3 class="w3-serif w3-left"><a class="task-title-white" href="/Tasks/GetTask?taskId=@Html.DisplayFor(modelItem => item.TaskId)">@Html.DisplayFor(modelItem => item.TaskTitle)</a> - @Html.DisplayFor(model => item.AssignedUser.FirstName) @Html.DisplayFor(model => item.AssignedUser.LastName)</h3>
                                 </header>
                                 <div class="w3-container w3-padding">
-                                    <div class="w3-indent">@Html.DisplayFor(modelItem => item.TaskDescription)</div> <hr />
+                                    <div class="w3-indent">
+                                        @{
+                                            if (item.TaskDescription.Length > 150)
+                                            {
+                                                var shortDesc = item.TaskDescription.Substring(0, 100) + " ...";
+                                                <p>@shortDesc</p>
+                                            }
+                                            else
+                                            {
+                                                @Html.DisplayFor(modelItem => item.TaskDescription)
+                                            }
+                                        }
+                                    </div> <hr />
                                     <div class="w3-left">
                                         Start Date: @Html.DisplayFor(modelItem => item.TaskStardDate) <br />
                                         End Date: @Html.DisplayFor(modelItem => item.TaskStardDate)
@@ -47,7 +59,19 @@
                                     <h3 class="w3-serif w3-right"><a class="task-title-black" href="/Tasks/GetTask?taskId=@Html.DisplayFor(modelItem => item.TaskId)">@Html.DisplayFor(modelItem => item.TaskTitle)</a> - @Html.DisplayFor(model => item.AssignedUser.FirstName) @Html.DisplayFor(model => item.AssignedUser.LastName)</h3>
                                 </header>
                                 <div class="w3-container w3-padding">
-                                    <div class="w3-indent">@Html.DisplayFor(modelItem => item.TaskDescription)</div> <hr />
+                                    <div class="w3-indent">
+                                        @{
+                                            if (item.TaskDescription.Length > 150)
+                                            {
+                                                var shortDesc = item.TaskDescription.Substring(0, 100) + " ...";
+                                                <p>@shortDesc</p>
+                                            }
+                                            else
+                                            {
+                                                @Html.DisplayFor(modelItem => item.TaskDescription)
+                                            }
+                                        }
+                                    </div> <hr />
                                     <div class="w3-left">
                                         Start Date: @Html.DisplayFor(modelItem => item.TaskStardDate) <br />
                                         End Date: @Html.DisplayFor(modelItem => item.TaskStardDate)

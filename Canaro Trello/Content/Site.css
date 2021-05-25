@@ -136,3 +136,15 @@
     text-decoration: none;
     color: black;
 }
+
+.w3-orange-lambo {
+    background-color: #ffa75e;
+}
+
+.w3-round-brd {
+    border-left: 10px solid #000000;
+    border-right: 10px solid #000000;
+    border-bottom: 10px solid #000000;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}

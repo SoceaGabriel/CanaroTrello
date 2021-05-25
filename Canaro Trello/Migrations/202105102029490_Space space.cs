@@ -5,7 +5,7 @@
     
     public partial class Spacespace : DbMigration
     {
-        public override void Up()
+        public override void Up() 
         {
         }
         

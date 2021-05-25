@@ -5,7 +5,7 @@
     ViewBag.Title = "Projects list";
     Layout = "~/Views/Shared/MainLayout.cshtml";
 }
-
+ 
 
 @section PageTitle{
     <div class="w3-padding-16 w3-center">
@@ -14,9 +14,14 @@
 }
 
     <div>
-        <p class="w3-button w3-teal w3-right menu-item">
-            @Html.ActionLink("Create New", "AddProject")
-        </p>
+        @{
+            if (Session["CanaroAuthRole"].Equals(Canaro_Trello.Models.Roles.ADMIN))
+            {
+                <p class="w3-button w3-teal w3-right menu-item">
+                    @Html.ActionLink("Create New", "AddProject")
+                </p>
+            }
+        }
         <p class="w3-left sort-select-list">
             <div class="w3-dropdown-hover">
                 <button class="w3-button">Sort<i class="material-icons">arrow_drop_down</i></button>
@@ -44,14 +49,32 @@
                     <div class="w3-card-4 custom-project-card">
                         <header class="w3-container w3-tarhon w3-indent">
                             <h3 class="w3-serif w3-left"><a href="/Projects/GetProject?index=@Html.DisplayFor(modelItem => item.ProjectId)">@Html.DisplayFor(modelItem => item.ProjectTitle)</a></h3>
-                            <div class="w3-right">
-                                <a href="/Projects/EditProject?index=@Html.DisplayFor(modelItem => item.ProjectId)" title="Edit"><i class="material-icons" style="font-size:30px;color:white; padding-top: 10px">create</i></a>
-                                <a href="/Projects/DeleteProject?index=@Html.DisplayFor(modelItem => item.ProjectId)"><i class="material-icons" style="font-size:30px;color:white; padding-right: 10px" title="Delete">delete</i></a>
-                            </div>
+                            @{
+                                if (Session["CanaroAuthRole"].Equals(Canaro_Trello.Models.Roles.ADMIN))
+                                {
+                                    <div class="w3-right">
+                                        <a href="/Projects/EditProject?index=@Html.DisplayFor(modelItem => item.ProjectId)" title="Edit"><i class="material-icons" style="font-size:30px;color:white; padding-top: 10px">create</i></a>
+                                        <a href="/Projects/DeleteProject?index=@Html.DisplayFor(modelItem => item.ProjectId)"><i class="material-icons" style="font-size:30px;color:white; padding-right: 10px" title="Delete">delete</i></a>
+                                    </div>
+                                }
+                            }
+
                         </header>
 
                         <div class="w3-container w3-padding">
-                            <div class="w3-padding">@Html.DisplayFor(modelItem => item.ProjectDescription)</div> <hr />
+                            <div class="w3-padding">
+                                @{
+                                    if (item.ProjectDescription.Length > 150)
+                                    {
+                                        var shortDesc = item.ProjectDescription.Substring(0, 100) + " ...";
+                                        <p>@shortDesc</p>
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(modelItem => item.ProjectDescription)
+                                    }
+                                }
+                            </div> <hr />
                             <div class="w3-left">
                                 Start Date: @Html.DisplayFor(modelItem => item.ProjectStartDate) <br />
                                 Complexity:@Html.DisplayFor(modelItem => item.Complexity)

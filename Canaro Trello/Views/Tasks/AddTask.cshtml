@@ -29,13 +29,13 @@
                     IEnumerable<SelectListItem> nameList = ViewBag.userName;
                     @Html.DropDownList("UserIdString", nameList, htmlAttributes: new { @class = "w3-input w3-border w3-border-teal w3-round-large" })
                     @Html.ValidationMessageFor(model => model.UserIdString, "", new { @class = "text-danger" })
-
                 }
                 else if (Session["CanaroAuthRole"].Equals(Canaro_Trello.Models.Roles.NORMAL_USER))
                 {
-                    @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "w3-text-teal w3-indent" })
-                    @Html.TextBoxFor(x => Session["CanaroAuthUser"], new { @class = "w3-input w3-border w3-border-teal w3-round-large", @readonly = "readonly" })
-
+                    @Html.LabelFor(model => model.UserIdString, htmlAttributes: new { @class = "w3-text-teal w3-indent" })
+                    IEnumerable<SelectListItem> nameListAuthUser = ViewBag.userNameAuthUsr;
+                    @Html.DropDownList("UserIdString", nameListAuthUser, htmlAttributes: new { @class = "w3-input w3-border w3-border-teal w3-round-large" })
+                    @Html.ValidationMessageFor(model => model.UserIdString, "", new { @class = "text-danger" })
                 }
             }
         </p>

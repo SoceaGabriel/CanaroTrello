@@ -11,7 +11,7 @@
             AddColumn("dbo.Task", "ProjectIdString", c => c.String());
         }
         
-        public override void Down()
+        public override void Down() 
         {
             DropColumn("dbo.Task", "ProjectIdString");
             DropColumn("dbo.Task", "UserIdString");

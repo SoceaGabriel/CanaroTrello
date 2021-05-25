@@ -9,7 +9,7 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = false; 
         }
 
         protected override void Seed(Canaro_Trello.AppContext context)
