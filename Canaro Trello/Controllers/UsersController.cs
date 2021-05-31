@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Canaro_Trello.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,12 +10,25 @@ namespace Canaro_Trello.Controllers
     public class UsersController : Controller
     {
         private AppContext DBCotext = AppContext.Create();
-
+        [HttpGet]
         public ActionResult MyProfile()
         {
-            return View();
+            var usrid = Session["CanaroAuthUserId"].ToString();
+            var user = DBCotext.Utilizatori.Where(x => x.UserId == new Guid(usrid)).FirstOrDefault();
+            UserDTO sendUser = new UserDTO
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                UserId = user.UserId,
+                BirthDay = user.BirthDay,
+                ConfirmedPassword = user.ConfirmedPassword,
+                Password = user.Password
+            };
+            return View(sendUser);
         }
 
+        [HttpGet]
         public ActionResult GetUserList()
         {
             var users = DBCotext.Utilizatori.ToList();
@@ -29,20 +43,50 @@ namespace Canaro_Trello.Controllers
             return Json(usersName, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public ActionResult GetAdminRole(string selectedUser)
         {
             var user = DBCotext.Utilizatori.Where(x => x.UserId == new Guid(selectedUser)).FirstOrDefault();
             user.Role = Models.Roles.ADMIN;
             DBCotext.SaveChanges();
+
             return RedirectToAction("MyProfile", "Users");
         }
 
+        [HttpGet]
         public ActionResult GetProfileInfo(string userId)
         {
             var user = DBCotext.Utilizatori.Where(x => x.UserId == new Guid(userId)).FirstOrDefault();
             return Json(user, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult UpdateProfileInfo(UserDTO userDTO)
+        {
+            if(userDTO.Password != userDTO.ConfirmedPassword)
+            {
+                ModelState.AddModelError("Password", "Password does not match confirmed password !");
+                return RedirectToAction("MyProfile", "Users");
+            }
+            else
+            {
+                var updateUser = DBCotext.Utilizatori.Where(x => x.UserId == userDTO.UserId).FirstOrDefault();
+                updateUser.FirstName = userDTO.FirstName;
+                updateUser.LastName = userDTO.LastName;
+                updateUser.Email = userDTO.Email;
+                updateUser.BirthDay = userDTO.BirthDay;
+                updateUser.ConfirmedPassword = userDTO.ConfirmedPassword;
+                updateUser.Password = userDTO.Password;
+                DBCotext.SaveChanges();
+                Session["CanaroAuthUser"] = updateUser.FirstName + " " + updateUser.LastName;
+                Session["CanaroAuthUserId"] = updateUser.UserId;
+                Session["CanaroAuthEmail"] = updateUser.Email;
+                Session["CanaroAuthRole"] = updateUser.Role;
+                return RedirectToAction("MyProfile","Users");
+            }
+        }
+
+        [HttpGet]
         public ActionResult GetToDoTasks(string userId)
         {
             var todoTasks = DBCotext.Tasks.Where(x => x.AssignedUser.UserId == new Guid(userId) 
@@ -54,6 +98,7 @@ namespace Canaro_Trello.Controllers
             return Json(todoTasks, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public ActionResult GetInProgressTasks(string userId)
         {
             var inprogressTasks = DBCotext.Tasks.Where(x => x.AssignedUser.UserId == new Guid(userId)
@@ -65,6 +110,7 @@ namespace Canaro_Trello.Controllers
             return Json(inprogressTasks, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public ActionResult GetFinishedTasks(string userId)
         {
             var finishedTasks = DBCotext.Tasks.Where(x => x.AssignedUser.UserId == new Guid(userId)

@@ -54,8 +54,56 @@
     <button onclick="myFunction('ChangeProfileInfo')" class="w3-btn w3-block w3-margin-bottom w3-light-grey w3-round-brd">
         Change profile info
     </button>
-    <div id="ChangeProfileInfo" class="w3-hide w3-center w3-card w3-margin-bottom">
-        <p>Lorem ipsum...</p>
+    <div id="ChangeProfileInfo" class="w3-container w3-padding-32 w3-hide w3-center w3-center w3-card w3-margin-bottom">
+        <div>
+            @using (Html.BeginForm("UpdateProfileInfo", "Users", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+            <div class="w3-container">
+                <h4>Edit the desired fields</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.UserId)
+                <p>
+                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "w3-text-teal w3-indent" })<span class="w3-text-teal">*</span>
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "w3-input w3-border w3-border-teal w3-round-large" } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </p>
+
+                <p>
+                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "w3-text-teal w3-indent" })<span class="w3-text-teal">*</span>
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "w3-input w3-border w3-border-teal w3-round-large" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </p>
+
+                <p>
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "w3-text-teal w3-indent" })<span class="w3-text-teal">*</span>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "w3-input w3-border w3-border-teal w3-round-large" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </p>
+
+                <p>
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "w3-text-teal w3-indent" })<span class="w3-text-teal">*</span>
+                    @Html.PasswordFor(model => model.Password, new { @class = "w3-input w3-border w3-border-teal w3-round-large", @value = @Model.Password })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </p>
+
+                <p>
+                    @Html.LabelFor(model => model.ConfirmedPassword, htmlAttributes: new { @class = "w3-text-teal w3-indent" })<span class="w3-text-teal">*</span>
+                    @Html.PasswordFor(model => model.ConfirmedPassword, new { @class = "w3-input w3-border w3-border-teal w3-round-large", @value = Model.ConfirmedPassword })
+                    @Html.ValidationMessageFor(model => model.ConfirmedPassword, "", new { @class = "text-danger" })
+                </p>
+
+                <p>
+                    @Html.LabelFor(model => model.BirthDay, htmlAttributes: new { @class = "w3-text-teal w3-indent" })<span class="w3-text-teal">*</span>
+                    @Html.TextBoxFor(model => model.BirthDay, "{0:MM/dd/yyyy}", htmlAttributes: new { @class = "w3-input w3-border w3-border-teal w3-round-large", @value = Model.BirthDay })
+                    @Html.ValidationMessageFor(model => model.BirthDay, "", new { @class = "text-danger" })
+                </p>
+                <input type="submit" value="Update info" class="w3-btn w3-teal w3-serif w3-margin-top" />
+            </div>
+            }
+        </div>
     </div>
 
     <!-- To do tasks -->
@@ -171,7 +219,7 @@
                             content.appendChild(left);
                             content.appendChild(right);
                             cardDiv.appendChild(content);
-                            document.getElementById("ToDoTasks").appendChild(cardDiv);
+                            document.getElementById("InProgressTasks").appendChild(cardDiv);
                         }
                     }
                 }
@@ -231,7 +279,7 @@
                             content.appendChild(left);
                             content.appendChild(right);
                             cardDiv.appendChild(content);
-                            document.getElementById("ToDoTasks").appendChild(cardDiv);
+                            document.getElementById("FinishedTasks").appendChild(cardDiv);
                         }
                     }
                 }

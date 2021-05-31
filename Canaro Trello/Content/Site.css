@@ -2,6 +2,23 @@
     background-color: #e7e9eb;
 }
 
+.back-image-layout {
+    background-image: url("../Images/gradient_back.jpg");
+    background-color: white;
+    background-size: cover;
+}
+
+.main-div-element {
+    width: 20%;
+    position: relative;
+    float: left;
+    margin-left: 4%;
+    margin-bottom: 40px;
+    background-color: #ebecf0;
+    border-radius: 5px;
+    min-height: 300px;
+}
+
 .w3-gr {
     background-color: #e7e9eb;
     color: black;
@@ -118,24 +135,50 @@
     float: right;
 }
 
+.hide-button {
+    display: none;
+}
+
+.toogle-menu {
+    display: inline;
+}
+
 @media screen and (min-width: 600px) {
     .menu-item {
         margin-left: 20px;
     }
 }
 
-.task-title-white, .task-title-black{
+@media screen and (max-width: 900px) {
+
+    .hide-button {
+        display: block;
+    }
+
+    .toogle-menu {
+        display: none;
+    }
 }
 
-.task-title-white:hover {
-    text-decoration: none;
-    color: white;
+@media screen and (max-width: 900px) {
+    .main-div-element {
+        width: 90%;
+        margin-left: 5%;
+    }
 }
 
-.task-title-black:hover {
-    text-decoration: none;
-    color: black;
+.task-title-white, .task-title-black {
 }
+
+    .task-title-white:hover {
+        text-decoration: none;
+        color: white;
+    }
+
+    .task-title-black:hover {
+        text-decoration: none;
+        color: black;
+    }
 
 .w3-orange-lambo {
     background-color: #ffa75e;

@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Images/favicon.png" />
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/")
     @Scripts.Render("~/bundles/modernizr")
@@ -12,35 +13,56 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
-    <nav class="w3-bar w3-teal">
-        <span class="w3-bar-item  w3-mobile menu-item w3-serif"><img src="../Images/logo.svg" alt="Logo Canaro Trello" width="34" /> &nbsp; @Html.ActionLink("Canaro Trello", "Index", "Home")</span>
-        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Activity ", "Activity", "Tasks")</span>
-        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Tasks", "GetAllTasks", "Tasks")</span>
-        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Projects", "GetAllProjects", "Projects")</span>
-        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("My Profile", "MyProfile", "Users")</span>
-        <span class="w3-bar-item w3-mobile hello-user w3-serif w3-padding-16 w3-right">
-            <a href="/Login/Logout">Logout</a>
-        </span>
-        <span class="w3-bar-item w3-mobile hello-user w3-serif w3-padding-16 w3-right">Hello, @Session["CanaroAuthUser"]!</span>
+<body class="back-image-layout">
+    <nav class="w3-bar">
+        <div class="hide-button">
+            <button class="w3-button" onclick="toogleMenu();">
+                <span class="w3-bar-item"><i class="material-icons" style="font-size:30px;color:white; position:relative; padding-top: 0px;">view_headline</i></span>
+            </button>
+        </div>
+        <div class="toogle-menu" id="toogle-menu">
+            <span class="w3-bar-item  w3-mobile menu-item w3-serif">
+                <img src="../Images/logo.svg" alt="Logo Canaro Trello" width="34" /> &nbsp; @Html.ActionLink("Canaro Trello", "Index", "Home")
+            </span>
+            <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Activity ", "Activity", "Tasks")</span>
+            <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Tasks", "GetAllTasks", "Tasks")</span>
+            <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Projects", "GetAllProjects", "Projects")</span>
+            <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("My Profile", "MyProfile", "Users")</span>
+            <span class="w3-bar-item w3-mobile hello-user w3-serif w3-padding-16 w3-right">
+                <a href="/Login/Logout">Logout</a>
+            </span>
+            <span class="w3-bar-item w3-mobile hello-user w3-serif w3-padding-16 w3-right">Hello, @Session["CanaroAuthUser"]!</span>
+        </div>
     </nav>
 
-    <div class="w3-row">
-        <div class="w3-threequarter">
+    <script>
+        var isOpen = false;
+        function toogleMenu() {
+            if (isOpen == false) {
+                document.getElementById("toogle-menu").style.display = "block";
+                isOpen = true;
+            } else {
+                document.getElementById("toogle-menu").style.display = "none";
+                isOpen = false;
+            }
+        }
+        window.addEventListener('resize', reportWindowSize);
+        function reportWindowSize() {
+            if (window.innerWidth > 600) {
+                document.getElementById("toogle-menu").style.display = "block";
+            } else {
+                document.getElementById("toogle-menu").style.display = "none";
+            }
+        }
+    </script>
 
-            <div class="main-content w3-card custom-body">
-                @RenderBody()
-            </div>
-        </div>
-
-        <div class="w3-quarter custom-div">
-
-        </div>
-
+    <div class="w3-margin">
+        @RenderBody()
     </div>
 
-    <footer class="w3-container w3-teal w3-center">
-        <p>&copy; @DateTime.Now.Year - Canaro Trello - Aplicatie pentru management task-uri. &copy; Socea Gabriel</p>
+
+    <footer class="w3-container w3-bottom w3-center">
+        <p>&copy; @DateTime.Now.Year - Canaro Trello - Tasks management web app. &copy; Socea Gabriel</p>
     </footer>
 
     @Scripts.Render("~/bundles/jquery")

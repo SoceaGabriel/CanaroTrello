@@ -11,19 +11,49 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <nav class="w3-bar w3-teal">
-        <span class="w3-bar-item  w3-mobile menu-item w3-serif"><img src="../Images/logo.svg" alt="Logo Canaro Trello" width="34" /> &nbsp; @Html.ActionLink("Canaro Trello", "Index", "Home")</span>
-        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Activity ", "Activity", "Tasks")</span>
-        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Tasks", "GetAllTasks", "Tasks")</span>
-        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Projects", "GetAllProjects", "Projects")</span>
-        <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("My Profile", "MyProfile", "Users")</span>
-        <span class="w3-bar-item w3-mobile hello-user w3-serif w3-padding-16 w3-right">
-            <a href="/Login/Logout">Logout</a>
-        </span>
-        <span class="w3-bar-item w3-mobile hello-user w3-serif w3-padding-16 w3-right">Hello, @Session["CanaroAuthUser"]!</span>
+        <div class="hide-button">
+            <button class="w3-button" onclick="toogleMenu();">
+                <span class="w3-bar-item"><i class="material-icons" style="font-size:30px;color:white; position:relative; padding-top: 0px;">view_headline</i></span>
+            </button>
+        </div>
+        <div class="toogle-menu" id="toogle-menu">
+            <span class="w3-bar-item  w3-mobile menu-item w3-serif">
+                <img src="../Images/logo.svg" alt="Logo Canaro Trello" width="34" /> &nbsp; @Html.ActionLink("Canaro Trello", "Index", "Home")
+            </span>
+            <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Activity ", "Activity", "Tasks")</span>
+            <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Tasks", "GetAllTasks", "Tasks")</span>
+            <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("Projects", "GetAllProjects", "Projects")</span>
+            <span class="w3-bar-item w3-mobile menu-item w3-serif w3-padding-16">@Html.ActionLink("My Profile", "MyProfile", "Users")</span>
+            <span class="w3-bar-item w3-mobile hello-user w3-serif w3-padding-16 w3-right">
+                <a href="/Login/Logout">Logout</a>
+            </span>
+            <span class="w3-bar-item w3-mobile hello-user w3-serif w3-padding-16 w3-right">Hello, @Session["CanaroAuthUser"]!</span>
+        </div>
     </nav>
+    <script>
+        var isOpen = false;
+        function toogleMenu() {
+            if (isOpen == false) {
+                document.getElementById("toogle-menu").style.display = "block";
+                isOpen = true;
+            } else {
+                document.getElementById("toogle-menu").style.display = "none";
+                isOpen = false;
+            }
+        }
+        window.addEventListener('resize', reportWindowSize);
+        function reportWindowSize() {
+            if (window.innerWidth > 600) {
+                document.getElementById("toogle-menu").style.display = "block";
+            } else {
+                document.getElementById("toogle-menu").style.display = "none";
+            }
+        }
+    </script>
     @RenderSection("PageTitle", true)
     <div class="w3-row">
         <div class="w3-threequarter">
@@ -34,30 +64,84 @@
         </div>
 
         <div class="w3-quarter custom-div">
-            <!--Vremea-->
+            <!--Last 5 tasks-->
             <div class="w3-card-4 aside-card">
                 <header class="w3-container w3-teal">
-                    <h3 class="w3-serif">Weather in Iasi </h3>
+                    <h3 class="w3-serif">Last added tasks  </h3>
                 </header>
                 <div class="w3-container w3-padding-16">
-                    <div id="wwo-weather-widget-1"></div>
-                    <script type='text/javascript' src='https://www.worldweatheronline.com/widget/v5/weather-widget.ashx?loc=2028326&wid=1&tu=1&div=wwo-weather-widget-1' async></script><noscript>This is a weather widget sript!</noscript>
+                    <div>
+                        <ul id="getLastTasks" class="w3-ul">
+
+                        </ul>
+                    </div>
+                    <script>
+                        $.ajax({
+                            url: '/Home/GetLast5Tasks',
+                            type: 'GET',
+                            async: false,
+                            success: function (result) {
+                                for (var i in result) {
+
+                                    var liElem = document.createElement("li");
+                                    var aLiElem = document.createElement("a");
+                                    var spanLiElem = document.createElement("span");
+                                    var textA = document.createTextNode(result[i].TaskTitle);
+                                    var textSpan = document.createTextNode("X");
+                                    liElem.setAttribute("class", "w3-display-container");
+                                    spanLiElem.setAttribute("onclick", "this.parentElement.style.display='none'");
+                                    spanLiElem.setAttribute("class", "w3-button w3-transparent w3-display-right");
+                                    aLiElem.setAttribute("href", "/Tasks/GetTask?taskId=" + result[i].TaskId);
+                                    aLiElem.setAttribute("style", "text-decoration: none;");
+
+                                    spanLiElem.appendChild(textSpan);
+                                    aLiElem.appendChild(textA);
+                                    liElem.appendChild(aLiElem);
+                                    liElem.appendChild(spanLiElem);
+                                    document.getElementById("getLastTasks").appendChild(liElem);
+                                }
+                            }
+                        });
+                    </script>
                 </div>
             </div>
 
             <!--Curs valutar-->
             <div class="w3-card-4 aside-card">
                 <header class="w3-container w3-teal">
-                    <h3 class="w3-serif">Exchange</h3>
+                    <h3 class="w3-serif">The most active users</h3>
                 </header>
                 <div class="w3-container w3-padding-16">
-                    <!--Currency Converter widget by FreeCurrencyRates.com -->
+                    <div>
+                        <ul id="getMostActiveUsers" class="w3-ul"></ul>
+                    </div>
+                    <script>
+                        $.ajax({
+                            url: '/Home/GetMostActiveUsers',
+                            type: 'GET',
+                            async: false,
+                            success: function (mostActiveUsers) {
 
-                    <div id='gcw_mainFwI8qMpdR' class='gcw_mainFwI8qMpdR'></div>
+                                for (var i in mostActiveUsers) {
 
-                    <script>function reloadFwI8qMpdR() { var sc = document.getElementById('scFwI8qMpdR'); if (sc) sc.parentNode.removeChild(sc); sc = document.createElement('script'); sc.type = 'text/javascript'; sc.charset = 'UTF-8'; sc.async = true; sc.id = 'scFwI8qMpdR'; sc.src = 'https://freecurrencyrates.com/en/widget-vertical-editable?iso=USD-EUR-GBP-RON&df=1&p=FwI8qMpdR&v=fits&source=fcr&width=245&width_title=0&firstrowvalue=1&thm=dddddd,eeeeee,E78F08,F6A828,FFFFFF,cccccc,ffffff,1C94C4,000000&title=Currency%20Converter&tzo=-180'; var div = document.getElementById('gcw_mainFwI8qMpdR'); div.parentNode.insertBefore(sc, div); } reloadFwI8qMpdR();</script>
-                    <!-- put custom styles here: .gcw_mainFwI8qMpdR{}, .gcw_headerFwI8qMpdR{}, .gcw_ratesFwI8qMpdR{}, .gcw_sourceFwI8qMpdR{} -->
-                    <!--End of Currency Converter widget by FreeCurrencyRates.com -->
+                                    var liElemMAU = document.createElement("li");
+                                    var pLiElemMAU = document.createElement("p");
+                                    var spanLiElemMAU = document.createElement("span");
+                                    var textpMAU = document.createTextNode(mostActiveUsers[i].FirstName + " " + mostActiveUsers[i].LastName);
+                                    var textSpanMAU = document.createTextNode("X");
+                                    liElemMAU.setAttribute("class", "w3-display-container");
+                                    spanLiElemMAU.setAttribute("onclick", "this.parentElement.style.display='none'");
+                                    spanLiElemMAU.setAttribute("class", "w3-button w3-transparent w3-display-right");
+
+                                    spanLiElemMAU.appendChild(textSpanMAU);
+                                    pLiElemMAU.appendChild(textpMAU);
+                                    liElemMAU.appendChild(pLiElemMAU);
+                                    liElemMAU.appendChild(spanLiElemMAU);
+                                    document.getElementById("getMostActiveUsers").appendChild(liElemMAU);
+                                }
+                            }
+                        });
+                    </script>
                 </div>
             </div>
 
@@ -70,7 +154,7 @@
                     <div id="my-calendar"></div>
                     <script>
                         const myCalendar = new TavoCalendar('#my-calendar', {
-                            date: "2021-03-15",
+                            date: new Date(),
                             format: "DD-MM-YYYY",
                             locale: "ro",
                             selected: new Date(),
@@ -92,7 +176,7 @@
     </div>
 
     <footer class="w3-container w3-teal w3-center">
-        <p>&copy; @DateTime.Now.Year - Canaro Trello - Aplicatie pentru management task-uri. &copy; Socea Gabriel</p>
+        <p>&copy; @DateTime.Now.Year - Canaro Trello - Task management web app. &copy; Socea Gabriel</p>
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
