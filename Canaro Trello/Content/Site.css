@@ -14,9 +14,9 @@
     float: left;
     margin-left: 4%;
     margin-bottom: 40px;
-    background-color: #ebecf0;
+    background-color: white;
     border-radius: 5px;
-    min-height: 300px;
+    max-height: 90%;
 }
 
 .w3-gr {

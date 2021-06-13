@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Images/favicon.png" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/")
@@ -47,7 +48,7 @@
         }
         window.addEventListener('resize', reportWindowSize);
         function reportWindowSize() {
-            if (window.innerWidth > 600) {
+            if (window.innerWidth > 900) {
                 document.getElementById("toogle-menu").style.display = "block";
             } else {
                 document.getElementById("toogle-menu").style.display = "none";

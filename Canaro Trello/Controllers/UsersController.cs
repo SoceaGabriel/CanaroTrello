@@ -13,6 +13,10 @@ namespace Canaro_Trello.Controllers
         [HttpGet]
         public ActionResult MyProfile()
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var usrid = Session["CanaroAuthUserId"].ToString();
             var user = DBCotext.Utilizatori.Where(x => x.UserId == new Guid(usrid)).FirstOrDefault();
             UserDTO sendUser = new UserDTO
@@ -31,6 +35,10 @@ namespace Canaro_Trello.Controllers
         [HttpGet]
         public ActionResult GetUserList()
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var users = DBCotext.Utilizatori.ToList();
             List<SelectListItem> usersName = new List<SelectListItem>();
             foreach (var usr in users)
@@ -56,6 +64,10 @@ namespace Canaro_Trello.Controllers
         [HttpGet]
         public ActionResult GetProfileInfo(string userId)
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var user = DBCotext.Utilizatori.Where(x => x.UserId == new Guid(userId)).FirstOrDefault();
             return Json(user, JsonRequestBehavior.AllowGet);
         }
@@ -89,6 +101,10 @@ namespace Canaro_Trello.Controllers
         [HttpGet]
         public ActionResult GetToDoTasks(string userId)
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var todoTasks = DBCotext.Tasks.Where(x => x.AssignedUser.UserId == new Guid(userId) 
             && x.State == Canaro_Trello.Models.State.NOTSTARTED).ToList();
             foreach(var tsk in todoTasks)
@@ -101,6 +117,10 @@ namespace Canaro_Trello.Controllers
         [HttpGet]
         public ActionResult GetInProgressTasks(string userId)
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var inprogressTasks = DBCotext.Tasks.Where(x => x.AssignedUser.UserId == new Guid(userId)
             && x.State == Models.State.INPROGRESS).ToList();
             foreach (var tsk in inprogressTasks)
@@ -113,6 +133,10 @@ namespace Canaro_Trello.Controllers
         [HttpGet]
         public ActionResult GetFinishedTasks(string userId)
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var finishedTasks = DBCotext.Tasks.Where(x => x.AssignedUser.UserId == new Guid(userId)
             && x.State == Canaro_Trello.Models.State.FINISHED).ToList();
             foreach (var tsk in finishedTasks)

@@ -97,7 +97,9 @@ namespace Canaro_Trello.Controllers
                     DBContext.Utilizatori.Add(utilizator);
                     DBContext.SaveChanges();
                     Session["CanaroAuthUser"] = user.FirstName + " " + user.LastName;
+                    Session["CanaroAuthUserId"] = user.UserId;
                     Session["CanaroAuthEmail"] = user.Email;
+                    Session["CanaroAuthRole"] = count > 0 ? Roles.NORMAL_USER : Roles.ADMIN;
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -112,8 +114,10 @@ namespace Canaro_Trello.Controllers
         [HttpGet]
         public ActionResult Logout()
         {
-            Session["CanaroAuthUser"] = ""; 
+            Session["CanaroAuthUser"] = "";
+            Session["CanaroAuthUserId"] = ""; 
             Session["CanaroAuthEmail"] = "";
+            Session["CanaroAuthRole"] = "";
             return RedirectToAction("Index", "Login");
         }
     }

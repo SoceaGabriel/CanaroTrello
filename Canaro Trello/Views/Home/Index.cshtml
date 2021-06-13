@@ -6,18 +6,166 @@
     ViewBag.Title = "Canaro Trello";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div class="w3-row w3-margin-top">
-    <div class="w3-container w3-padding-24 main-div-element">
+    <div class="w3-padding-24 main-div-element" style="min-height: 300px;">
         <p class="w3-center"><b>TODO tasks</b></p><hr style="border: 1px solid #a0a1a5;" />
+        <div>
+            <ul id="allTODOTasks" class="w3-ul"></ul>
+            <script>
+                $.ajax({
+                    url: '/Home/GetAllTODOTasks',
+                    type: 'GET',
+                    async: false,
+                    success: function (result) {
+                        for (var i in result) {
+
+                            var liElem = document.createElement("li");
+                            var aLiElem = document.createElement("a");
+                            var spanLiElem = document.createElement("span");
+                            var textA = document.createTextNode("  " + result[i].TaskTitle);
+                            var textSpan = document.createTextNode("X");
+                            var icon = document.createElement("i");
+                            var iconText = document.createTextNode("assignment");
+                            icon.appendChild(iconText);
+                            icon.setAttribute("class", "material-icons");
+                            icon.setAttribute("style", "font-size:20px; vertical-align: middle; color: #ffa75e;");
+                            liElem.setAttribute("class", "w3-display-container");
+                            spanLiElem.setAttribute("onclick", "this.parentElement.style.display='none'");
+                            spanLiElem.setAttribute("class", "w3-button w3-transparent w3-display-right");
+                            aLiElem.setAttribute("href", "/Tasks/GetTask?taskId=" + result[i].TaskId);
+                            aLiElem.setAttribute("style", "text-decoration: none;");
+
+                            spanLiElem.appendChild(textSpan);
+                            aLiElem.appendChild(icon);
+                            aLiElem.appendChild(textA);
+                            liElem.appendChild(aLiElem);
+                            liElem.appendChild(spanLiElem);
+                            document.getElementById("allTODOTasks").appendChild(liElem);
+                        }
+                    }
+                });
+            </script>
+        </div>
     </div>
-    <div class="w3-container w3-padding-24 main-div-element">
+    <div class="w3-padding-24 main-div-element" style="min-height: 400px;">
         <p class="w3-center"><b>In progress tasks</b></p><hr style="border: 1px solid #a0a1a5;" />
+        <div>
+            <ul id="allInProgressTasks" class="w3-ul"></ul>
+            <script>
+                $.ajax({
+                    url: '/Home/GetAllInProgressTasks',
+                    type: 'GET',
+                    async: false,
+                    success: function (result) {
+                        for (var i in result) {
+
+                            var liElem = document.createElement("li");
+                            var aLiElem = document.createElement("a");
+                            var spanLiElem = document.createElement("span");
+                            var textA = document.createTextNode("  " + result[i].TaskTitle);
+                            var textSpan = document.createTextNode("X");
+                            var icon = document.createElement("i");
+                            var iconText = document.createTextNode("hourglass_empty");
+                            icon.appendChild(iconText);
+                            icon.setAttribute("class", "material-icons");
+                            icon.setAttribute("style", "font-size:20px; vertical-align: middle; color: #fd81a5;");
+                            liElem.setAttribute("class", "w3-display-container");
+                            spanLiElem.setAttribute("onclick", "this.parentElement.style.display='none'");
+                            spanLiElem.setAttribute("class", "w3-button w3-transparent w3-display-right");
+                            aLiElem.setAttribute("href", "/Tasks/GetTask?taskId=" + result[i].TaskId);
+                            aLiElem.setAttribute("style", "text-decoration: none;");
+
+                            spanLiElem.appendChild(textSpan);
+                            aLiElem.appendChild(icon);
+                            aLiElem.appendChild(textA);
+                            liElem.appendChild(aLiElem);
+                            liElem.appendChild(spanLiElem);
+                            document.getElementById("allInProgressTasks").appendChild(liElem);
+                        }
+                    }
+                });
+            </script>
+        </div>
     </div>
-    <div class="w3-container w3-padding-24 main-div-element">
+    <div class="w3-padding-24 main-div-element" style="min-height: 500px;">
         <p class="w3-center"><b>Finished tasks</b></p><hr style="border: 1px solid #a0a1a5;" />
+        <div>
+            <ul id="allFinishedTasks" class="w3-ul"></ul>
+            <script>
+                $.ajax({
+                    url: '/Home/GetAllFinishedTasks',
+                    type: 'GET',
+                    async: false,
+                    success: function (result) {
+                        for (var i in result) {
+
+                            var liElem = document.createElement("li");
+                            var aLiElem = document.createElement("a");
+                            var spanLiElem = document.createElement("span");
+                            var textA = document.createTextNode("  " + result[i].TaskTitle);
+                            var textSpan = document.createTextNode("X");
+                            var icon = document.createElement("i");
+                            var iconText = document.createTextNode("assignment_turned_in");
+                            icon.appendChild(iconText);
+                            icon.setAttribute("class", "material-icons");
+                            icon.setAttribute("style", "font-size:20px; vertical-align: middle; color: #6485ee;");
+                            liElem.setAttribute("class", "w3-display-container");
+                            spanLiElem.setAttribute("onclick", "this.parentElement.style.display='none'");
+                            spanLiElem.setAttribute("class", "w3-button w3-transparent w3-display-right");
+                            aLiElem.setAttribute("href", "/Tasks/GetTask?taskId=" + result[i].TaskId);
+                            aLiElem.setAttribute("style", "text-decoration: none;");
+
+                            spanLiElem.appendChild(textSpan);
+                            aLiElem.appendChild(icon);
+                            aLiElem.appendChild(textA);
+                            liElem.appendChild(aLiElem);
+                            liElem.appendChild(spanLiElem);
+                            document.getElementById("allFinishedTasks").appendChild(liElem);
+                        }
+                    }
+                });
+            </script>
+        </div>
     </div>
-    <div class="w3-container w3-padding-24 main-div-element">
+    <div class="w3-container w3-padding-24 main-div-element" style="min-height: 600px;">
         <p class="w3-center"><b>Latest projects</b></p><hr style="border: 1px solid #a0a1a5;" />
+        <div>
+            <ul id="latestProject" class="w3-ul"></ul>
+            <script>
+                $.ajax({
+                    url: '/Home/GetAllProjects',
+                    type: 'GET',
+                    async: false,
+                    success: function (result) {
+                        for (var i in result) {
+
+                            var liElem = document.createElement("li");
+                            var aLiElem = document.createElement("a");
+                            var spanLiElem = document.createElement("span");
+                            var textA = document.createTextNode("  " + result[i].ProjectTitle);
+                            var textSpan = document.createTextNode("X");
+                            var icon = document.createElement("i");
+                            var iconText = document.createTextNode("pages");
+                            icon.appendChild(iconText);
+                            icon.setAttribute("class", "material-icons");
+                            icon.setAttribute("style", "font-size:20px; vertical-align: middle; color: #9a14c9;");
+                            liElem.setAttribute("class", "w3-display-container");
+                            spanLiElem.setAttribute("onclick", "this.parentElement.style.display='none'");
+                            spanLiElem.setAttribute("class", "w3-button w3-transparent w3-display-right");
+                            aLiElem.setAttribute("href", "/Projects/GetProject?index=" + result[i].ProjectId);
+                            aLiElem.setAttribute("style", "text-decoration: none;");
+
+                            spanLiElem.appendChild(textSpan);
+                            aLiElem.appendChild(icon);
+                            aLiElem.appendChild(textA);
+                            liElem.appendChild(aLiElem);
+                            liElem.appendChild(spanLiElem);
+                            document.getElementById("latestProject").appendChild(liElem);
+                        }
+                    }
+                });
+            </script>
+        </div>
     </div>
 </div>

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc; 
 using PagedList;
-
-namespace Canaro_Trello.Controllers
+ 
+namespace Canaro_Trello.Controllers 
 {
     public class TasksController : Controller
     {
@@ -15,12 +15,20 @@ namespace Canaro_Trello.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
 
         [HttpGet]
         public ActionResult GetTask(Guid taskId)
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             TaskDTO task = DBCotext.Tasks.Select(c => new TaskDTO
             {
                 TaskId = c.TaskId,
@@ -222,6 +230,10 @@ namespace Canaro_Trello.Controllers
         [HttpGet]
         public ActionResult AddTask()
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var users = DBCotext.Utilizatori.ToList();
             var projects = DBCotext.Projects.ToList();
             List<SelectListItem> usersName = new List<SelectListItem>();
@@ -300,6 +312,10 @@ namespace Canaro_Trello.Controllers
         [HttpGet]
         public ActionResult EditTask(Guid index)
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             TaskDTO task = DBCotext.Tasks.Select(c => new TaskDTO
             {
                AssignedUser = c.AssignedUser,
@@ -366,6 +382,10 @@ namespace Canaro_Trello.Controllers
         [HttpGet]
         public ActionResult DeleteTask(Guid index)
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var task = DBCotext.Tasks.Find(index);
             DBCotext.Tasks.Remove(task);
             DBCotext.SaveChanges();
@@ -375,6 +395,10 @@ namespace Canaro_Trello.Controllers
         [HttpGet]
         public ActionResult Activity(int? page)
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             IEnumerable<TaskDTO> tasks = null;

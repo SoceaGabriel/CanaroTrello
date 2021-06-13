@@ -13,12 +13,20 @@ namespace Canaro_Trello.Controllers
         private AppContext DBCotext = AppContext.Create();
         public ActionResult Index()
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
 
         [HttpGet]
         public ActionResult GetProject(Guid index)
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             ProjectDTO project = DBCotext.Projects.Select(c => new ProjectDTO
             {
                 ProjectId = c.ProjectId,
@@ -117,6 +125,10 @@ namespace Canaro_Trello.Controllers
         [HttpGet]
         public ActionResult AddProject()
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
 
@@ -142,13 +154,15 @@ namespace Canaro_Trello.Controllers
                 ModelState.AddModelError("ProjectId", "Complete the requested fields!");
                 return View(project);
             }
-            
-     
         }
 
         [HttpGet]
         public ActionResult EditProject(Guid index)
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             ProjectDTO pro = DBCotext.Projects.Select(c => new ProjectDTO
             {
                 ProjectId = c.ProjectId,
@@ -177,6 +191,10 @@ namespace Canaro_Trello.Controllers
         [HttpGet]
         public ActionResult DeleteProject(Guid index)
         {
+            if (Session["CanaroAuthUser"] == null || Session["CanaroAuthUser"].Equals(""))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var pro = DBCotext.Projects.Find(index);
             DBCotext.Projects.Remove(pro);
             DBCotext.SaveChanges();

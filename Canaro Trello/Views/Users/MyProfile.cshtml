@@ -171,7 +171,7 @@
     <button onclick="myFunction('InProgressTasks')" class="w3-btn w3-block w3-light-grey w3-margin-bottom w3-round-brd">
         In Progress tasks
     </button>
-    <div id="InProgressTasks" class="w3-hide w3-center w3-card w3-margin-bottom">
+    <div id="InProgressTasks" class="w3-hide w3-padding-32 w3-container w3-center w3-card w3-margin-bottom">
         <script>
             $.ajax({
                 url: '/Users/GetInProgressTasks',
@@ -231,7 +231,7 @@
     <button onclick="myFunction('FinishedTasks')" class="w3-btn w3-block w3-light-grey w3-margin-bottom w3-round-brd">
         Finished tasks
     </button>
-    <div id="FinishedTasks" class="w3-hide w3-center w3-card w3-margin-bottom">
+    <div id="FinishedTasks" class="w3-hide w3-padding-32 w3-container w3-center w3-card w3-margin-bottom">
         <script>
             $.ajax({
                 url: '/Users/GetFinishedTasks',
@@ -297,9 +297,9 @@
             for (var arr in array) {
                 if (array[arr] != id) {
                     var mrr = document.getElementById(array[arr]);
-                    if (mrr.className.indexOf("w3-show") != -1) {
-                        mrr.className = mrr.className.replace(" w3-show", "");
-                    }
+                    //mrr.className = mrr.className.replace(" w3-show", "");
+                    //if (mrr.className.indexOf("w3-show") != -1) {
+                    //}
                 }
                 
             }
